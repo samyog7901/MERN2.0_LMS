@@ -31,7 +31,12 @@ const AddBook = () => {
       formData.append(key,value)
     })
     formData.append('image',image)
-    const response = await axios.post('https://mern2-0-basicnode-zrh4.onrender.com/book')
+    const response = await axios.post('https://mern2-0-basicnode-zrh4.onrender.com/book',formData, 
+      {
+        headers: {
+          "Content-Type": "multipart/form-data" // Important for file uploads
+        }
+      })
     if(response.status === 201){
       navigate('/')
     }else{
