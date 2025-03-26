@@ -1,19 +1,29 @@
 import React, { useState } from 'react'
 import Navbar from '../components/Navbar'
 import axios from 'axios'
-import { useNavigate } from 'react-router-dom'
+import { useNavigate, useParams } from 'react-router-dom'
 
 
 const AddBook = () => {
-const navigate = useNavigate()
-  const [bookName, setBookName] = useState('')
-  const [bookPrice , setBookPrice] = useState('')
-  const [isbnNumber, setIsbnNumber] = useState(null)
-  const [authorName, setAuthorName] = useState('')
-  const [publication, setPublication] = useState('')
-  const [publishedAt, setPublishedAt] = useState('')
-  const [image, setImage] = useState(null)
+  const {id} = useParams()
+  const navigate = useNavigate()
+    const [data, setData] = useState({
+      bookName : '',
+      bookPrice : '',
+      isbnNumber : null,
+      authorName : '',
+      publication : '',
+      publishedAt : ''
+    })
+    const [image, setImage] = useState(null)
 
+    const handleChange = (e) => {
+      const {name, value} = e.target
+      setData({
+        ...data,
+        [name]: value
+      })
+    }
   const handleSubmit = async (e)=>{
     e.preventDefault()
     const response = await axios.post('https://mern2-0-basicnode-zrh4.onrender.com/book',{
@@ -50,27 +60,27 @@ const navigate = useNavigate()
               <form onSubmit={handleSubmit} class="space-y-4 md:space-y-6" action="#">
                   <div>
                       <label htmlFor="bookName" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Book Name</label>
-                      <input type="text" name="bookName" id="email" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required="" onChange={(e)=>setBookName(e.target.value)}/>
+                      <input type="text" name="bookName" id="email" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required="" onChange={handleChange}/>
                   </div>
                   <div>
                       <label htmlFor="bookPrice" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Book Price</label>
-                      <input type="text" name="bookPrice" id="bookPrice"  class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required="" onChange={(e)=>setBookPrice(e.target.value)}/>
+                      <input type="text" name="bookPrice" id="bookPrice"  class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required="" onChange={handleChange}/>
                   </div>
                   <div>
                       <label htmlFor="isbnNumber" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">ISBN Number</label>
-                      <input type="number" name="isbnNumber" id="isbnNumber"  class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required="" onChange={(e)=>setIsbnNumber(e.target.value)}/>
+                      <input type="number" name="isbnNumber" id="isbnNumber"  class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required="" onChange={handleChange}/>
                   </div>
                   <div>
                       <label htmlFor="authorName" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Author Name</label>
-                      <input type="text" name="authorName" id="authorName"  class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required="" onChange={(e)=>setAuthorName(e.target.value)}/>
+                      <input type="text" name="authorName" id="authorName"  class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required="" onChange={handleChange}/>
                   </div>
                   <div>
                       <label htmlFor="publication" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">publication</label>
-                      <input type="text" name="publication" id="publication"  class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required="" onChange={(e)=>setPublication(e.target.value)}/>
+                      <input type="text" name="publication" id="publication"  class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required="" onChange={handleChange}/>
                   </div>
                   <div>
                       <label htmlFor="publishedAt" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Published Date</label>
-                      <input type="date" name="publishedAt" id="publishedAt"  class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required="" onChange={(e)=>setPublishedAt(e.target.value)}/>
+                      <input type="date" name="publishedAt" id="publishedAt"  class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required="" onChange={handleChange}/>
                   </div>
                   <div>
                     <label htmlFor="image" class="block text-sm font-medium text-gray-700">Upload Book Image</label>
