@@ -32,7 +32,6 @@ const AddBook = () => {
     })
     formData.append('image',image)
     const response = await axios.post('https://mern2-0-basicnode-zrh4.onrender.com/book')
-  
     if(response.status === 201){
       navigate('/')
     }else{
