@@ -26,21 +26,15 @@ const AddBook = () => {
     }
   const handleSubmit = async (e)=>{
     e.preventDefault()
-    const response = await axios.post('https://mern2-0-basicnode-zrh4.onrender.com/book',{
-      bookName,
-      bookPrice,
-      isbnNumber,
-      authorName,
-      publication,
-      publishedAt,
-      image
-    },{
-      headers:{
-        'Content-Type' : 'multipart/form-data'
-      }
+    const formData = new FormData()
+    Object.entries(data).forEach(([key,value])=>{
+      formData.append(key,value)
     })
+    formData.append('image',image)
+    const response = await axios.post('https://mern2-0-basicnode-zrh4.onrender.com/book')
+  
     if(response.status === 201){
-      navigate('/')
+      navigate('https://mern-2-0-lms.vercel.app/')
     }else{
       alert('Something went wrong')
     }
