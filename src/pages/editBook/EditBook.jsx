@@ -36,7 +36,7 @@ const EditBook = () => {
         const response = await axios.patch(`https://mern2-0-basicnode-zrh4.onrender.com/book/${id}`,formData)
         
         if(response.status === 200){
-          navigate('https://mern-2-0-lms.vercel.app/book/' + id)
+          navigate('https://mern-2-0-lms.vercel.app/book' + id)
         }else{
           alert('Something went wrong')
         }
