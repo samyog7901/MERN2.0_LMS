@@ -3,12 +3,13 @@ import Navbar from '../components/Navbar'
 import { Link, useNavigate, useParams } from 'react-router-dom'
 import axios from 'axios'
 
+
 const SingleBook = () => {
     const navigate = useNavigate()
   const {id} = useParams() 
   const [book, setBook] = useState({})
   const fetchBook = async () => {
-    const response = await axios.get(`http://localhost:3000/book/${id}`)
+    const response = await axios.get(`https://mern2-0-basicnode-zrh4.onrender.com/book/${id}`)
     if(response.status === 200) {
       setBook(response.data.data)
     }
@@ -20,7 +21,7 @@ const SingleBook = () => {
   const handleDelete = async () => {
     if(window.confirm("Are you sure you want to delete this book?")) {
         try{
-            const response = await axios.delete(`http://localhost:3000/book/${id}`)
+            const response = await axios.delete(`https://mern2-0-basicnode-zrh4.onrender.com/book/${id}`)
             if(response.status === 200) {
                 alert("Book deleted successfully")
                 navigate("/")
@@ -36,6 +37,8 @@ const SingleBook = () => {
   return (
    <>
     <Navbar/>
+    <Link to={`/`}><button className='relative top-20 left-5 bg-amber-400 hover:cursor-pointer hover:bg-amber-300 hover:text-red-400'>Home</button></Link>
+    
     <div class="min-h-screen flex items-center justify-center bg-gray-100 p-5 my-17">
     <div class="max-w-lg w-full bg-white rounded-2xl shadow-xl overflow-hidden transform transition duration-300 hover:scale-105">
         <img class="w-full h-auto object-contain" 
@@ -70,6 +73,7 @@ const SingleBook = () => {
            <button className='mx-45 my-10 text-white bg-red-400 p-2.5 rounded-lg hover:bg-red-600 hover:cursor-pointer' onClick={handleDelete}>Delete</button>
           <Link to={`/editBook/${book._id}`} ><button className='mx-75 text-white bg-blue-400 px-3.5 py-2 rounded-lg hover:bg-blue-600 hover:cursor-pointer'>Edit</button></Link>
         </div>
+      
     </div>
 </div>
 

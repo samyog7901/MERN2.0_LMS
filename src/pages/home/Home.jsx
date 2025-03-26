@@ -6,7 +6,7 @@ import axios from 'axios'
 const Home = () => {
   const [books,setBooks] = useState([])
   const fetchBooks = async () => {
-    const response = await axios.get('http://localhost:3000/book')
+    const response = await axios.get('https://mern2-0-basicnode-zrh4.onrender.com/book')
     if(response.status == 200){
       setBooks(response.data.data)
       
