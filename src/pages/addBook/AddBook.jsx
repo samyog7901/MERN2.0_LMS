@@ -34,8 +34,7 @@ const AddBook = () => {
     const response = await axios.post('https://mern2-0-basicnode-zrh4.onrender.com/book')
   
     if(response.status === 201){
-      window.location.href = "https://mern-2-0-lms.vercel.app";
-
+      navigate('/')
     }else{
       alert('Something went wrong')
     }
