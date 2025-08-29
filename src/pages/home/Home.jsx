@@ -9,11 +9,9 @@ const Home = () => {
     const response = await axios.get('https://mern2-0-basicnode-zrh4.onrender.com/book')
     if(response.status == 200){
       setBooks(response.data.data)
-      
     }
-    
-
   }
+
   useEffect(()=>{
     fetchBooks()
   },[])
