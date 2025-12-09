@@ -1,116 +1,223 @@
-import React, { useEffect, useState } from 'react'
-import Navbar from '../components/Navbar'
-import { useNavigate, useParams } from 'react-router-dom'
-import axios from 'axios'
+import React, { useEffect, useState } from "react";
+import Navbar from "../components/Navbar";
+import { useNavigate, useParams } from "react-router-dom";
+import axios from "axios";
 
 const EditBook = () => {
-    const {id} = useParams()
-    const navigate = useNavigate()
-      const [data, setData] = useState({
-        bookName : '',
-        bookPrice : '',
-        isbnNumber : null,
-        authorName : '',
-        publication : '',
-        publishedAt : ''
-      })
-      const [image, setImage] = useState(null)
+  const { id } = useParams();
+  const navigate = useNavigate();
 
-      const handleChange = (e) => {
-        const {name, value} = e.target
-        setData({
-          ...data,
-          [name]: value
-        })
+  const [data, setData] = useState({
+    bookName: "",
+    bookPrice: "",
+    isbnNumber: null,
+    authorName: "",
+    publication: "",
+    publishedAt: "",
+    imageUrl: "",
+  });
+
+  const [image, setImage] = useState(null);
+  const [preview, setPreview] = useState("");
+  const [loading, setLoading] = useState(false);
+
+  // Handle input fields
+  const handleChange = (e) => {
+    setData({ ...data, [e.target.name]: e.target.value });
+  };
+
+  // Handle image preview
+  const handleImageChange = (e) => {
+    const file = e.target.files[0];
+    setImage(file);
+    if (file) setPreview(URL.createObjectURL(file));
+  };
+
+  // Submit updated book data
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setLoading(true);
+
+    try {
+      const formData = new FormData();
+      Object.entries(data).forEach(([key, value]) => {
+        if (key !== "imageUrl") formData.append(key, value);
+      });
+
+      if (image) formData.append("image", image);
+
+      const response = await axios.patch(
+        `https://mern2-0-basicnode-zrh4.onrender.com/book/${id}`,
+        formData
+      );
+
+      if (response.status === 200) {
+        navigate(`/book/${id}`);
+      } else {
+        alert("Something went wrong!");
       }
-    
-      const handleSubmit = async (e)=>{
-        e.preventDefault()
-        const formData = new FormData()
+    } catch (error) {
+      alert(error.response?.data?.error || "Update failed.");
+    } finally {
+      setLoading(false);
+    }
+  };
 
-        Object.entries(data).forEach(([key,value])=>{
-          formData.append(key,value)
-        })
-        formData.append('image',image)
-
-        const response = await axios.patch(`https://mern2-0-basicnode-zrh4.onrender.com/book/${id}`,formData)
-        
-        if(response.status === 200){
-          navigate('/book/' + id)
-        }else{
-          alert('Something went wrong')
-        }
+  const fetchBook = async () => {
+    try {
+      const response = await axios.get(
+        `https://mern2-0-basicnode-zrh4.onrender.com/book/${id}`
+      );
+      if (response.status === 200) {
+        setData(response.data.data);
+        setPreview(response.data.data.imageUrl);
       }
+    } catch (error) {
+      alert("Failed to load book details");
+    }
+  };
 
-      const fetchBook = async ()=>{
-        const response = await axios.get('https://mern2-0-basicnode-zrh4.onrender.com/book/' + id)
-        if(response.status === 200){
-          setData(response.data.data)
-        }
-      }
-      useEffect(() => {
-        fetchBook()
-      },[])
+  useEffect(() => {
+    fetchBook();
+  }, []);
 
   return (
     <>
-    <Navbar/ >
-    
-    <div className="flex flex-col items-center justify-center px-6 py-8 mx-auto md:h-screen lg:py-0 my-29">
-    
-    <div className="w-full bg-white rounded-lg shadow dark:border md:mt-0 sm:max-w-md xl:p-0 dark:bg-gray-800 dark:border-gray-700">
-        <div className="p-6 space-y-4 md:space-y-6 sm:p-8">
-            <h1 className="text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl dark:text-white">
-                Edit Book
-            </h1>
-            <form onSubmit={handleSubmit} className="space-y-4 md:space-y-6" action="#">
-                <div>
-                    <label htmlFor="bookName" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Book Name</label>
-                    <input type="text" name="bookName" id="bookName" value={data.bookName} className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required="" onChange={handleChange}/>
-                </div>
-                <div>
-                    <label htmlFor="bookPrice" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Book Price</label>
-                    <input type="text" name="bookPrice" value={data.bookPrice} id="bookPrice"  className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required="" onChange={handleChange}/>
-                </div>
-                <div>
-                    <label htmlFor="isbnNumber" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">ISBN Number</label>
-                    <input type="number" name="isbnNumber" value={data.isbnNumber} id="isbnNumber"  className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required="" onChange={handleChange}/>
-                </div>
-                <div>
-                    <label htmlFor="authorName" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Author Name</label>
-                    <input type="text" name="authorName" value={data.authorName} id="authorName"  className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required="" onChange={handleChange}/>
-                </div>
-                <div>
-                    <label htmlFor="publication" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">publication</label>
-                    <input type="text" name="publication" value={data.publication} id="publication"  className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required="" onChange={handleChange}/>
-                </div>
-                <div>
-                    <label htmlFor="publishedAt" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Published Date</label>
-                    <input type="date" name="publishedAt" value={data.publishedAt} id="publishedAt"  className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required="" onChange={handleChange}/>
-                </div>
-                <div>
-                  <label htmlFor="image" className="block text-sm font-medium text-gray-700">Upload Book Image</label>
-                    <input type="file" name="image" id="image" className="mt-1 block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 focus:outline-none focus:ring-2 focus:ring-blue-400" onChange={(e)=>setImage(e.target.files[0])}/>
-                </div>
-          
+      <Navbar />
 
+      <div className="flex flex-col items-center px-6 py-10 mx-auto max-w-2xl">
+        <div className="w-full bg-white rounded-xl shadow-lg p-6 md:p-8">
+          <h1 className="text-2xl font-bold text-gray-900 mb-6">
+            Edit Book Details
+          </h1>
 
-                
-                <div>
-                  <button type="submit" className="px-6 py-3 w-full bg-green-500 text-white text-lg font-semibold rounded-lg shadow-md transition-all duration-300 hover:bg-green-600 hover:shadow-lg focus:ring-4 focus:ring-green-300 active:scale-95">
-                      Edit Book
-                  </button>
+          {/* Image Preview */}
+          <div className="flex justify-center mb-6">
+            <img
+              src={preview || "https://via.placeholder.com/150"}
+              alt="Preview"
+              className="h-40 w-40 object-cover rounded-lg border"
+            />
+          </div>
 
-                </div> 
-               
-               
-                
-            </form>
+          <form onSubmit={handleSubmit} className="space-y-4">
+            {/* Book Name */}
+            <div>
+              <label className="block text-sm font-medium text-gray-700">
+                Book Name
+              </label>
+              <input
+                type="text"
+                name="bookName"
+                value={data.bookName}
+                onChange={handleChange}
+                required
+                className="mt-1 w-full p-2.5 border rounded-lg bg-gray-50"
+              />
+            </div>
+
+            {/* Book Price */}
+            <div>
+              <label className="block text-sm font-medium text-gray-700">
+                Book Price
+              </label>
+              <input
+                type="number"
+                name="bookPrice"
+                value={data.bookPrice}
+                onChange={handleChange}
+                required
+                className="mt-1 w-full p-2.5 border rounded-lg bg-gray-50"
+              />
+            </div>
+
+            {/* ISBN */}
+            <div>
+              <label className="block text-sm font-medium text-gray-700">
+                ISBN Number
+              </label>
+              <input
+                type="number"
+                name="isbnNumber"
+                value={data.isbnNumber}
+                onChange={handleChange}
+                required
+                className="mt-1 w-full p-2.5 border rounded-lg bg-gray-50"
+              />
+            </div>
+
+            {/* Author */}
+            <div>
+              <label className="block text-sm font-medium text-gray-700">
+                Author Name
+              </label>
+              <input
+                type="text"
+                name="authorName"
+                value={data.authorName}
+                onChange={handleChange}
+                required
+                className="mt-1 w-full p-2.5 border rounded-lg bg-gray-50"
+              />
+            </div>
+
+            {/* Publication */}
+            <div>
+              <label className="block text-sm font-medium text-gray-700">
+                Publication
+              </label>
+              <input
+                type="text"
+                name="publication"
+                value={data.publication}
+                onChange={handleChange}
+                required
+                className="mt-1 w-full p-2.5 border rounded-lg bg-gray-50"
+              />
+            </div>
+
+            {/* Publish Date */}
+            <div>
+              <label className="block text-sm font-medium text-gray-700">
+                Published Date
+              </label>
+              <input
+                type="date"
+                name="publishedAt"
+                value={data.publishedAt}
+                onChange={handleChange}
+                required
+                className="mt-1 w-full p-2.5 border rounded-lg bg-gray-50"
+              />
+            </div>
+
+            {/* Image Upload */}
+            <div>
+              <label className="block text-sm font-medium text-gray-700">
+                Change Book Image
+              </label>
+              <input
+                type="file"
+                name="image"
+                accept="image/*"
+                onChange={handleImageChange}
+                className="mt-2 w-full p-2 border rounded-lg bg-gray-50"
+              />
+            </div>
+
+            {/* Button */}
+            <button
+              type="submit"
+              disabled={loading}
+              className="w-full py-3 bg-blue-600 text-white font-semibold rounded-lg hover:bg-blue-700 transition disabled:opacity-50"
+            >
+              {loading ? "Updating..." : "Update Book"}
+            </button>
+          </form>
         </div>
-    </div>
-</div>
+      </div>
     </>
-  )
-}
+  );
+};
 
-export default EditBook
+export default EditBook;
