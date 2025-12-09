@@ -21,6 +21,7 @@ const Home = () => {
    <>
    <Navbar/>
    <div className='flex flex-wrap justify-evenly'>
+    <h2 className='text-amber-500 text-2xl text-center'>Explore spiritfull Books..</h2>
     {
       books.length > 0 && books.map((book)=>{
         return(

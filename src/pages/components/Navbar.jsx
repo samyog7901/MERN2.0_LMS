@@ -6,7 +6,7 @@ const Navbar = () => {
    <>
 
 
-<nav className="bg-white dark:bg-gray-900 fixed w-full z-20 top-0 start-0 border-b border-gray-200 dark:border-gray-600">
+<nav className="bg-white dark:bg-gray-900 fixed w-full z-20 top-0 start-0 border-b border-gray-200 dark:border-gray-600 mt-16">
   <div className="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
 
       <img src="https://media.istockphoto.com/id/1003199924/vector/open-book.jpg?s=612x612&w=0&k=20&c=nMtbiEjWkKvNQvZa-h9E8oyNNJDVsSSqzBDpqtATF4g=" className="h-8" alt="Book Logo" />
