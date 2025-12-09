@@ -34,54 +34,86 @@ const SingleBook = () => {
 
 
 
-  return (
-   <>
-    <Navbar/>
-    <Link to={`/`}><button className='relative top-20 left-5 bg-amber-400 hover:cursor-pointer hover:bg-amber-300 hover:text-red-400'>Home</button></Link>
-    
-    <div class="min-h-screen flex items-center justify-center bg-gray-100 p-5 my-17">
-    <div class="max-w-lg w-full bg-white rounded-2xl shadow-xl overflow-hidden transform transition duration-300 hover:scale-105">
-        <img class="w-full h-auto object-contain" 
-            src={book.imageUrl ? book.imageUrl : 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTktoNpsu4s9DMHTtXkuuItwSp2ArmLW4YjdA&s'}
-            alt="Book Cover" />
 
-        <div class="p-6">
-            <h2 class="text-2xl font-bold text-gray-900 mb-3">{book.bookName}</h2>
-
-            <span class="bg-blue-500 text-white text-sm px-4 py-1 rounded-full">
-                Rs. {book.bookPrice}
-            </span>
-
-            <div class="mt-4 space-y-2 text-gray-700 text-base">
-                <p><span class="font-semibold">Author:</span> {book.authorName}</p>
-                <p><span class="font-semibold">ISBN:</span> {book.isbnNumber}</p>
-                <p><span class="font-semibold">Publication:</span> {book.publication}</p>
-                <p><span class="font-semibold">Published Date:</span> {book.publishedAt}</p>
-            </div>
-
-            <div class="mt-5 flex justify-between">
-                <button class="px-5 py-2 bg-green-500 text-white text-sm rounded-lg shadow-md hover:bg-green-600 transition">
-                    Buy Now
-                </button>
-                <button class="px-5 py-2 bg-gray-300 text-gray-700 text-sm rounded-lg shadow-md hover:bg-gray-400 transition flex items-center">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 text-red-500 mr-2" viewBox="0 0 20 20" fill="currentColor">
-                        <path fill-rule="evenodd" d="M3.172 5.172a4.001 4.001 0 015.656 0L10 6.586l1.172-1.414a4.001 4.001 0 015.656 5.656l-5.656 5.656-1.172 1.172-1.172-1.172-5.656-5.656a4.001 4.001 0 010-5.656z" clip-rule="evenodd" />
-                    </svg>
-                    Add to Wishlist
-                </button>
-            </div>
-           <button className='mx-45 my-10 text-white bg-red-400 p-2.5 rounded-lg hover:bg-red-600 hover:cursor-pointer' onClick={handleDelete}>Delete</button>
-          <Link to={`/editBook/${book._id}`} ><button className='mx-75 text-white bg-blue-400 px-3.5 py-2 rounded-lg hover:bg-blue-600 hover:cursor-pointer'>Edit</button></Link>
-        </div>
+    return (
+  <>
+    <Navbar />
+    <div className="min-h-screen bg-gray-50 py-10 px-5">
       
+      <div className="max-w-4xl mx-auto">
+        <Link 
+          to="/"
+          className="inline-flex items-center mb-6 text-blue-600 hover:text-blue-800 font-medium"
+        >
+          ← Back to Home
+        </Link>
+
+        <div className="bg-white shadow-xl rounded-2xl overflow-hidden border border-gray-200">
+          <div className="grid grid-cols-1 md:grid-cols-2">
+            
+            {/* IMAGE */}
+            <div className="bg-gray-100 flex items-center justify-center p-5">
+              <img
+                src={book.imageUrl ? book.imageUrl : "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTktoNpsu4s9DMHTtXkuuItwSp2ArmLW4YjdA&s"}
+                alt="Book Cover"
+                className="w-full h-[420px] object-contain rounded-xl"
+              />
+            </div>
+
+            {/* RIGHT SECTION */}
+            <div className="p-8">
+              <h1 className="text-3xl font-bold text-gray-900">{book.bookName}</h1>
+
+              <p className="mt-2 text-lg font-semibold text-green-600">
+                Rs. {book.bookPrice}
+              </p>
+
+              <div className="mt-6 space-y-3 text-gray-700 text-sm">
+                <p><span className="font-semibold">Author:</span> {book.authorName}</p>
+                <p><span className="font-semibold">ISBN:</span> {book.isbnNumber}</p>
+                <p><span className="font-semibold">Publication:</span> {book.publication}</p>
+                <p><span className="font-semibold">Published:</span> {book.publishedAt}</p>
+              </div>
+
+              {/* BUTTONS */}
+              <div className="mt-8 flex gap-4">
+
+                <button className="flex-1 px-5 py-3 bg-blue-600 text-white rounded-xl shadow hover:bg-blue-700 transition">
+                  Buy Now
+                </button>
+
+                <button className="flex-1 px-5 py-3 bg-gray-200 text-gray-700 rounded-xl shadow hover:bg-gray-300 transition">
+                  Add to Wishlist
+                </button>
+              </div>
+
+              {/* EDIT + DELETE */}
+              <div className="mt-8 flex gap-4">
+
+                <Link to={`/editBook/${book._id}`} className="flex-1">
+                  <button className="w-full px-5 py-3 bg-yellow-500 text-white rounded-xl hover:bg-yellow-600 transition">
+                    Edit
+                  </button>
+                </Link>
+
+                <button
+                  onClick={handleDelete}
+                  className="flex-1 px-5 py-3 bg-red-500 text-white rounded-xl hover:bg-red-600 transition"
+                >
+                  Delete
+                </button>
+
+              </div>
+
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
-</div>
-
-
-
-
-   </>
-  )
+  </>
+);
 }
+
+
 
 export default SingleBook
