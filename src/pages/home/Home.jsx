@@ -31,7 +31,7 @@ const Home = () => {
       <div className="pt-28">
 
         {/* -------------------- HERO SECTION -------------------- */}
-        <section className="bg-gradient-to-r from-amber-200 via-orange-100 to-yellow-200 py-16 text-center rounded-lg mx-4 shadow-md">
+        <section className="bg-linear-to-r from-amber-200 via-orange-100 to-yellow-200 text-center rounded-lg mx-4 shadow-md">
           <h1 className="text-4xl font-bold text-gray-800 mb-4">
             Discover Spiritual Books & Ancient Wisdom
           </h1>

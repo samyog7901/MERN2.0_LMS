@@ -52,11 +52,11 @@ const AddBook = () => {
     <>
       <Navbar />
 
-      <div className="pt-32 pb-12 bg-gray-50 min-h-screen flex items-start justify-center">
-        <div className="w-full max-w-lg bg-white rounded-xl shadow-md p-8">
-          <h1 className="text-2xl font-bold text-gray-900 mb-6 text-center">
-            Add New Book
-          </h1>
+      <div className="`pt-16` min-h-[calc(100vh-64px)] bg-gray-50 flex items-start justify-center pb-12">
+      <div className="w-full max-w-lg bg-white rounded-xl shadow-md p-8 mt-6">
+        <h1 className="text-2xl font-bold text-gray-900 mb-6 text-center">
+          Add New Book
+        </h1>
 
           <form onSubmit={handleSubmit} className="space-y-5">
 
