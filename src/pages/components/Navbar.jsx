@@ -60,7 +60,7 @@ const Navbar = () => {
             {/* Wishlist */}
             <button className="hover:text-blue-600 transition">
               <svg xmlns="http://www.w3.org/2000/svg" className="w-6 h-6" fill="none" viewBox="0 0 24 24" strokeWidth="2" stroke="currentColor">
-                <path strokeLinecap="round" strokeLinejoin="round" d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733C11.597 4.876 9.935 3.75 8 3.75 5.41 3.75 3.312 5.765 3.312 8.25c0 7.22 8 11.25 8 11.25s8-4.03 8-11.25z" />
+                <path strokeLinecap="round" strokeLinejoin="round" d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733C11.597 4.876 9.935 3.75 8 3.75 5.41 3.75 3.312 5.765 3.312 8.25c0 7.22 8 11.25 8 11.25s8-4.04 8-11.25z" />
               </svg>
             </button>
 
