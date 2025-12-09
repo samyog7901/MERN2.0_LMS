@@ -21,7 +21,7 @@ const SmallHeroCarousel = ({ slides }) => {
   }, []);
 
   // Duplicate slides for seamless scroll
-  const duplicatedSlides = [...slides, ...slides];
+  const duplicatedSlides = [...slides, ...slides, ...slides, ...slides];
 
   return (
     <div
