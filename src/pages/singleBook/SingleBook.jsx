@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from "react";
-import Navbar from "../components/Navbar";
-import Footer from "../components/Footer"; // make sure Footer component exists
-import Card from "../components/Card"; // reuse your Card component
 import { Link, useParams } from "react-router-dom";
 import axios from "axios";
 import { FaStar, FaRegStar } from "react-icons/fa";
+import Navbar from "../components/Navbar";
+import Card from "../components/Card";
+import Footer from "../components/Footer";
 
 const SingleBook = () => {
   const { id } = useParams();

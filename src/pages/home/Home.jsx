@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import Navbar from "../components/Navbar";
 import Card from "../components/Card";
 import axios from "axios";
+import Footer from "../components/Footer";
 
 const Home = () => {
   const [books, setBooks] = useState([]);
@@ -80,29 +81,7 @@ const Home = () => {
             </p>
           )}
         </div>
-
-
-
-        {/* -------------------- NEWSLETTER -------------------- */}
-        <section className="bg-gray-100 py-12 mt-20 text-center px-4 rounded-lg shadow-inner">
-          <h3 className="text-2xl font-semibold text-gray-800 mb-3">
-            Subscribe for New Book Updates 📚
-          </h3>
-          <p className="text-gray-600 mb-5">
-            Get notified when we add new spiritual and motivational books.
-          </p>
-
-          <div className="flex justify-center">
-            <input
-              type="email"
-              placeholder="Enter your email"
-              className="px-4 py-2 w-72 border rounded-l-lg focus:ring-2 focus:ring-amber-500"
-            />
-            <button className="bg-amber-500 text-white px-5 py-2 rounded-r-lg hover:bg-amber-600">
-              Subscribe
-            </button>
-          </div>
-        </section>
+       <Footer/>
 
       </div>
     </>
