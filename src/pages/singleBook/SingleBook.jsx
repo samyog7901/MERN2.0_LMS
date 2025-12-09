@@ -1,119 +1,129 @@
-import React, { useEffect, useState } from 'react'
-import Navbar from '../components/Navbar'
-import { Link, useNavigate, useParams } from 'react-router-dom'
-import axios from 'axios'
-
+import React, { useEffect, useState } from "react";
+import Navbar from "../components/Navbar";
+import { Link, useParams } from "react-router-dom";
+import axios from "axios";
+import { FaStar, FaRegStar } from "react-icons/fa";
 
 const SingleBook = () => {
-    const navigate = useNavigate()
-  const {id} = useParams() 
-  const [book, setBook] = useState({})
+  const { id } = useParams();
+  const [book, setBook] = useState({});
+  const [hoverDescription, setHoverDescription] = useState(false);
+
   const fetchBook = async () => {
-    const response = await axios.get(`https://mern2-0-basicnode-zrh4.onrender.com/book/${id}`)
-    if(response.status === 200) {
-      setBook(response.data.data)
+    try {
+      const response = await axios.get(
+        `https://mern2-0-basicnode-zrh4.onrender.com/book/${id}`
+      );
+      if (response.status === 200) {
+        setBook(response.data.data);
+      }
+    } catch (e) {
+      console.error(e);
     }
-  }
-  useEffect(()=>{
-    fetchBook()
-  },[])
+  };
 
-  const handleDelete = async () => {
-    if(window.confirm("Are you sure you want to delete this book?")) {
-        try{
-            const response = await axios.delete(`https://mern2-0-basicnode-zrh4.onrender.com/book/${id}`)
-            if(response.status === 200) {
-                alert("Book deleted successfully")
-                navigate("/")
-            }        
-        }catch(e){
-            e.getMessage()
-        }
-    }
-  }
+  useEffect(() => {
+    fetchBook();
+  }, []);
 
+  // Dummy rating: 4 stars out of 5
+  const rating = 4;
 
+  return (
+    <>
+      <Navbar />
+      <div className="min-h-screen bg-gray-50 pt-28 pb-16 px-4">
+        <div className="max-w-6xl mx-auto">
 
+          {/* Breadcrumb */}
+          <nav className="text-gray-500 text-sm mb-4" aria-label="breadcrumb">
+            <ol className="list-none p-0 inline-flex">
+              <li className="flex items-center">
+                <Link to="/" className="hover:underline">Home</Link>
+                <span className="mx-2">/</span>
+              </li>
+              <li className="flex items-center">
+                <span className="hover:underline cursor-pointer">Business and Investing</span>
+                <span className="mx-2">/</span>
+              </li>
+              <li className="flex items-center font-semibold">{book.bookName}</li>
+            </ol>
+          </nav>
 
-    return (
-  <>
-    <Navbar />
-    <div className="min-h-screen bg-gray-50 py-10 px-5">
-      
-      <div className="max-w-4xl mx-auto">
-        <Link 
-          to="/"
-          className="inline-flex items-center mb-6 text-blue-600 hover:text-blue-800 font-medium"
-        >
-          ← Back to Home
-        </Link>
+          {/* Main Book Container */}
+          <div className="bg-white shadow-lg rounded-2xl overflow-hidden border border-gray-200 flex flex-col md:flex-row">
 
-        <div className="bg-white shadow-xl rounded-2xl overflow-hidden border border-gray-200">
-          <div className="grid grid-cols-1 md:grid-cols-2">
-            
-            {/* IMAGE */}
-            <div className="bg-gray-100 flex items-center justify-center p-5">
+            {/* Book Image with Hover Description */}
+            <div 
+              className="md:w-1/3 relative bg-gray-100 flex items-center justify-center p-6 cursor-pointer"
+              onMouseEnter={() => setHoverDescription(true)}
+              onMouseLeave={() => setHoverDescription(false)}
+            >
               <img
-                src={book.imageUrl ? book.imageUrl : "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTktoNpsu4s9DMHTtXkuuItwSp2ArmLW4YjdA&s"}
-                alt="Book Cover"
-                className="w-full h-[420px] object-contain rounded-xl"
+                src={
+                  book.imageUrl
+                    ? book.imageUrl
+                    : "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTktoNpsu4s9DMHTtXkuuItwSp2ArmLW4YjdA&s"
+                }
+                alt={book.bookName}
+                className="rounded-xl max-h-[400px] object-contain"
               />
+
+              {/* Hover overlay */}
+              {hoverDescription && book.description && (
+                <div className="absolute inset-0 bg-black bg-opacity-70 text-white p-4 rounded-xl flex items-center justify-center text-center">
+                  <p className="text-sm leading-relaxed">{book.description}</p>
+                </div>
+              )}
             </div>
 
-            {/* RIGHT SECTION */}
-            <div className="p-8">
-              <h1 className="text-3xl font-bold text-gray-900">{book.bookName}</h1>
+            {/* Book Details */}
+            <div className="md:w-2/3 p-8 flex flex-col justify-between">
+              
+              {/* Title & Price */}
+              <div>
+                <h1 className="text-3xl font-bold text-gray-900">{book.bookName}</h1>
+                <p className="mt-2 text-xl font-semibold text-green-600">
+                  Rs. {book.bookPrice}
+                </p>
 
-              <p className="mt-2 text-lg font-semibold text-green-600">
-                Rs. {book.bookPrice}
-              </p>
+                {/* Rating */}
+                <div className="mt-3 flex items-center">
+                  {[...Array(5)].map((_, i) =>
+                    i < rating ? (
+                      <FaStar key={i} className="text-yellow-400 mr-1" />
+                    ) : (
+                      <FaRegStar key={i} className="text-gray-300 mr-1" />
+                    )
+                  )}
+                  <span className="ml-2 text-gray-500 text-sm">({rating}.0)</span>
+                </div>
+              </div>
 
-              <div className="mt-6 space-y-3 text-gray-700 text-sm">
+              {/* Author & Details */}
+              <div className="mt-6 text-gray-700 space-y-2 text-sm">
                 <p><span className="font-semibold">Author:</span> {book.authorName}</p>
                 <p><span className="font-semibold">ISBN:</span> {book.isbnNumber}</p>
                 <p><span className="font-semibold">Publication:</span> {book.publication}</p>
-                <p><span className="font-semibold">Published:</span> {book.publishedAt}</p>
+                <p><span className="font-semibold">Published Date:</span> {book.publishedAt}</p>
               </div>
 
-              {/* BUTTONS */}
-              <div className="mt-8 flex gap-4">
-
+              {/* Action Buttons */}
+              <div className="mt-8 flex flex-wrap gap-4">
                 <button className="flex-1 px-5 py-3 bg-blue-600 text-white rounded-xl shadow hover:bg-blue-700 transition">
                   Buy Now
                 </button>
-
                 <button className="flex-1 px-5 py-3 bg-gray-200 text-gray-700 rounded-xl shadow hover:bg-gray-300 transition">
                   Add to Wishlist
                 </button>
-              </div>
-
-              {/* EDIT + DELETE */}
-              <div className="mt-8 flex gap-4">
-
-                <Link to={`/editBook/${book._id}`} className="flex-1">
-                  <button className="w-full px-5 py-3 bg-yellow-500 text-white rounded-xl hover:bg-yellow-600 transition">
-                    Edit
-                  </button>
-                </Link>
-
-                <button
-                  onClick={handleDelete}
-                  className="flex-1 px-5 py-3 bg-red-500 text-white rounded-xl hover:bg-red-600 transition"
-                >
-                  Delete
-                </button>
-
               </div>
 
             </div>
           </div>
         </div>
       </div>
-    </div>
-  </>
-);
-}
+    </>
+  );
+};
 
-
-
-export default SingleBook
+export default SingleBook;

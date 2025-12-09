@@ -71,15 +71,17 @@ const Home = () => {
           Explore Spiritual Books
         </h2>
 
-        <div className="flex flex-wrap justify-center gap-6 px-4">
+        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-5 px-4 mt-6">
           {filteredBooks.length > 0 ? (
-            filteredBooks.map((book, index) => (
-              <Card key={index} book={book} />
-            ))
+            filteredBooks.map((book, index) => <Card key={index} book={book} />)
           ) : (
-            <p className="text-gray-500 text-lg">No books found.</p>
+            <p className="text-gray-500 text-lg col-span-full text-center">
+              No books found.
+            </p>
           )}
         </div>
+
+
 
         {/* -------------------- NEWSLETTER -------------------- */}
         <section className="bg-gray-100 py-12 mt-20 text-center px-4 rounded-lg shadow-inner">
