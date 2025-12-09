@@ -21,20 +21,21 @@ const SingleBook = () => {
       if (response.status === 200) {
         setBook(response.data.data);
 
-        // Fetch other books by the same author
-        const authorRes = await axios.get(
-          `https://mern2-0-basicnode-zrh4.onrender.com/book`
-        );
-        const byAuthor = authorRes.data.data.filter(
-          (b) => b.authorName === response.data.data.authorName && b._id !== id
-        );
-        setAuthorBooks(byAuthor);
+        const allBooks = (await axios.get(`https://mern2-0-basicnode-zrh4.onrender.com/book`)).data.data;
 
-        // Fetch similar books by category (here using publication as category)
-        const similar = authorRes.data.data.filter(
-          (b) => b.publication === response.data.data.publication && b._id !== id
+        // More by same author
+        setAuthorBooks(
+          allBooks.filter(
+            (b) => b.authorName === response.data.data.authorName && b._id !== id
+          )
         );
-        setSimilarBooks(similar);
+
+        // Similar books (by publication here)
+        setSimilarBooks(
+          allBooks.filter(
+            (b) => b.publication === response.data.data.publication && b._id !== id
+          )
+        );
       }
     } catch (e) {
       console.error(e);
@@ -134,25 +135,37 @@ const SingleBook = () => {
             </div>
           </div>
 
-          {/* More by this Author */}
+          {/* Full Description Section */}
+          {book.description && (
+            <section className="mt-10 bg-white shadow rounded-xl p-6 border border-gray-200">
+              <h2 className="text-2xl font-semibold mb-4">Description</h2>
+              <p className="text-gray-700 leading-relaxed">{book.description}</p>
+            </section>
+          )}
+
+          {/* More by this Author (Horizontal Scroll) */}
           {authorBooks.length > 0 && (
             <section className="mt-12">
               <h2 className="text-2xl font-semibold mb-4">More by {book.authorName}</h2>
-              <div className="flex flex-wrap gap-6">
+              <div className="flex overflow-x-auto gap-6 pb-2 hide-scrollbar">
                 {authorBooks.map((b) => (
-                  <Card key={b._id} book={b} />
+                  <div key={b._id} className="flex-none w-40 sm:w-48">
+                    <Card book={b} />
+                  </div>
                 ))}
               </div>
             </section>
           )}
 
-          {/* Similar Books */}
+          {/* Similar Books (Horizontal Scroll) */}
           {similarBooks.length > 0 && (
             <section className="mt-12">
               <h2 className="text-2xl font-semibold mb-4">Similar Books</h2>
-              <div className="flex flex-wrap gap-6">
+              <div className="flex overflow-x-auto gap-6 pb-2 hide-scrollbar">
                 {similarBooks.map((b) => (
-                  <Card key={b._id} book={b} />
+                  <div key={b._id} className="flex-none w-40 sm:w-48">
+                    <Card book={b} />
+                  </div>
                 ))}
               </div>
             </section>
