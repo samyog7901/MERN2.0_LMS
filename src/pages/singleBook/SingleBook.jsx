@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from "react";
 import Navbar from "../components/Navbar";
+import Footer from "../components/Footer"; // make sure Footer component exists
+import Card from "../components/Card"; // reuse your Card component
 import { Link, useParams } from "react-router-dom";
 import axios from "axios";
 import { FaStar, FaRegStar } from "react-icons/fa";
@@ -8,13 +10,32 @@ const SingleBook = () => {
   const { id } = useParams();
   const [book, setBook] = useState({});
   const [hoverDescription, setHoverDescription] = useState(false);
+  const [authorBooks, setAuthorBooks] = useState([]);
+  const [similarBooks, setSimilarBooks] = useState([]);
 
   const fetchBook = async () => {
     try {
       const response = await axios.get(
         `https://mern2-0-basicnode-zrh4.onrender.com/book/${id}`
       );
-      if (response.status === 200) setBook(response.data.data);
+      if (response.status === 200) {
+        setBook(response.data.data);
+
+        // Fetch other books by the same author
+        const authorRes = await axios.get(
+          `https://mern2-0-basicnode-zrh4.onrender.com/book`
+        );
+        const byAuthor = authorRes.data.data.filter(
+          (b) => b.authorName === response.data.data.authorName && b._id !== id
+        );
+        setAuthorBooks(byAuthor);
+
+        // Fetch similar books by category (here using publication as category)
+        const similar = authorRes.data.data.filter(
+          (b) => b.publication === response.data.data.publication && b._id !== id
+        );
+        setSimilarBooks(similar);
+      }
     } catch (e) {
       console.error(e);
     }
@@ -22,7 +43,7 @@ const SingleBook = () => {
 
   useEffect(() => {
     fetchBook();
-  }, []);
+  }, [id]);
 
   const rating = 4; // Dummy rating
 
@@ -40,7 +61,7 @@ const SingleBook = () => {
               </li>
               <li className="mx-2">/</li>
               <li>
-                <Link to="/category/business" className="hover:underline">Business and Investing</Link>
+                <span className="hover:underline cursor-pointer">{book.publication}</span>
               </li>
               <li className="mx-2">/</li>
               <li className="font-semibold">{book.bookName}</li>
@@ -71,9 +92,8 @@ const SingleBook = () => {
             {/* Book Details */}
             <div className="md:w-2/3 p-8 flex flex-col justify-between">
               <div>
-                {/* Optional category tag */}
                 <span className="inline-block mb-2 px-3 py-1 text-xs bg-amber-100 text-amber-800 rounded-full">
-                  Business & Investing
+                  {book.publication || "Category"}
                 </span>
 
                 <h1 className="text-3xl font-bold text-gray-900">{book.bookName}</h1>
@@ -114,8 +134,34 @@ const SingleBook = () => {
             </div>
           </div>
 
+          {/* More by this Author */}
+          {authorBooks.length > 0 && (
+            <section className="mt-12">
+              <h2 className="text-2xl font-semibold mb-4">More by {book.authorName}</h2>
+              <div className="flex flex-wrap gap-6">
+                {authorBooks.map((b) => (
+                  <Card key={b._id} book={b} />
+                ))}
+              </div>
+            </section>
+          )}
+
+          {/* Similar Books */}
+          {similarBooks.length > 0 && (
+            <section className="mt-12">
+              <h2 className="text-2xl font-semibold mb-4">Similar Books</h2>
+              <div className="flex flex-wrap gap-6">
+                {similarBooks.map((b) => (
+                  <Card key={b._id} book={b} />
+                ))}
+              </div>
+            </section>
+          )}
+
         </div>
       </div>
+
+      <Footer />
     </>
   );
 };
