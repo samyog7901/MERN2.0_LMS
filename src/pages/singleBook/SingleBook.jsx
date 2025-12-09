@@ -75,8 +75,7 @@ const SingleBook = () => {
             {/* Image with hover overlay */}
             <div
               className="md:w-1/3 relative bg-gray-100 flex items-center justify-center p-6 cursor-pointer group"
-              onMouseEnter={() => setHoverDescription(true)}
-              onMouseLeave={() => setHoverDescription(false)}
+            
             >
               <img
                 src={book.imageUrl || "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTktoNpsu4s9DMHTtXkuuItwSp2ArmLW4YjdA&s"}
