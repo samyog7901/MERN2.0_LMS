@@ -25,7 +25,6 @@ const AddBook = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
     setLoading(true);
     try {
       const formData = new FormData();
@@ -37,18 +36,11 @@ const AddBook = () => {
       const response = await axios.post(
         "https://mern2-0-basicnode-zrh4.onrender.com/book",
         formData,
-        {
-          headers: {
-            "Content-Type": "multipart/form-data",
-          },
-        }
+        { headers: { "Content-Type": "multipart/form-data" } }
       );
 
-      if (response.status === 201) {
-        navigate("/");
-      } else {
-        alert("Something went wrong");
-      }
+      if (response.status === 201) navigate("/");
+      else alert("Something went wrong");
     } catch (error) {
       alert(error.response?.data?.error || "Upload failed");
     } finally {
@@ -60,13 +52,14 @@ const AddBook = () => {
     <>
       <Navbar />
 
-      <div className="flex flex-col items-center justify-center px-6 py-8 mx-auto md:h-screen pt-28">
-        <div className="w-full bg-white rounded-xl shadow-lg sm:max-w-md p-6 md:p-8">
-          <h1 className="text-2xl font-bold text-gray-900 mb-6">
+      <div className="pt-32 pb-12 bg-gray-50 min-h-screen flex items-start justify-center">
+        <div className="w-full max-w-lg bg-white rounded-xl shadow-md p-8">
+          <h1 className="text-2xl font-bold text-gray-900 mb-6 text-center">
             Add New Book
           </h1>
 
           <form onSubmit={handleSubmit} className="space-y-5">
+
             {/* Book Name */}
             <div>
               <label htmlFor="bookName" className="block text-sm font-medium text-gray-700">
@@ -77,7 +70,7 @@ const AddBook = () => {
                 name="bookName"
                 onChange={handleChange}
                 required
-                className="mt-1 w-full p-2.5 border rounded-lg bg-gray-50"
+                className="mt-1 w-full p-3 border border-gray-300 rounded-lg bg-gray-50 focus:ring-2 focus:ring-amber-500 outline-none"
               />
             </div>
 
@@ -91,11 +84,11 @@ const AddBook = () => {
                 name="bookPrice"
                 onChange={handleChange}
                 required
-                className="mt-1 w-full p-2.5 border rounded-lg bg-gray-50"
+                className="mt-1 w-full p-3 border border-gray-300 rounded-lg bg-gray-50 focus:ring-2 focus:ring-amber-500 outline-none"
               />
             </div>
 
-            {/* ISBN */}
+            {/* ISBN Number */}
             <div>
               <label htmlFor="isbnNumber" className="block text-sm font-medium text-gray-700">
                 ISBN Number
@@ -105,11 +98,11 @@ const AddBook = () => {
                 name="isbnNumber"
                 onChange={handleChange}
                 required
-                className="mt-1 w-full p-2.5 border rounded-lg bg-gray-50"
+                className="mt-1 w-full p-3 border border-gray-300 rounded-lg bg-gray-50 focus:ring-2 focus:ring-amber-500 outline-none"
               />
             </div>
 
-            {/* Author */}
+            {/* Author Name */}
             <div>
               <label htmlFor="authorName" className="block text-sm font-medium text-gray-700">
                 Author Name
@@ -119,7 +112,7 @@ const AddBook = () => {
                 name="authorName"
                 onChange={handleChange}
                 required
-                className="mt-1 w-full p-2.5 border rounded-lg bg-gray-50"
+                className="mt-1 w-full p-3 border border-gray-300 rounded-lg bg-gray-50 focus:ring-2 focus:ring-amber-500 outline-none"
               />
             </div>
 
@@ -133,7 +126,7 @@ const AddBook = () => {
                 name="publication"
                 onChange={handleChange}
                 required
-                className="mt-1 w-full p-2.5 border rounded-lg bg-gray-50"
+                className="mt-1 w-full p-3 border border-gray-300 rounded-lg bg-gray-50 focus:ring-2 focus:ring-amber-500 outline-none"
               />
             </div>
 
@@ -147,7 +140,7 @@ const AddBook = () => {
                 name="publishedAt"
                 onChange={handleChange}
                 required
-                className="mt-1 w-full p-2.5 border rounded-lg bg-gray-50"
+                className="mt-1 w-full p-3 border border-gray-300 rounded-lg bg-gray-50 focus:ring-2 focus:ring-amber-500 outline-none"
               />
             </div>
 
@@ -159,9 +152,9 @@ const AddBook = () => {
               <textarea
                 name="description"
                 onChange={handleChange}
-                rows={4}
+                rows={5}
                 placeholder="Enter book description..."
-                className="mt-1 w-full p-2.5 border rounded-lg bg-gray-50 resize-none"
+                className="mt-1 w-full p-3 border border-gray-300 rounded-lg bg-gray-50 resize-none focus:ring-2 focus:ring-amber-500 outline-none"
               ></textarea>
             </div>
 
@@ -175,7 +168,7 @@ const AddBook = () => {
                 name="image"
                 accept="image/*"
                 onChange={(e) => setImage(e.target.files[0])}
-                className="mt-2 w-full text-sm border rounded-lg p-2 bg-gray-50"
+                className="mt-2 w-full text-sm border border-gray-300 rounded-lg p-2 bg-gray-50"
               />
             </div>
 
@@ -183,10 +176,11 @@ const AddBook = () => {
             <button
               type="submit"
               disabled={loading}
-              className="w-full py-3 bg-green-600 text-white font-semibold rounded-lg hover:bg-green-700 transition disabled:opacity-50"
+              className="w-full py-3 bg-amber-500 text-white font-semibold rounded-lg hover:bg-amber-600 transition disabled:opacity-50"
             >
               {loading ? "Uploading..." : "Add Book"}
             </button>
+
           </form>
         </div>
       </div>
