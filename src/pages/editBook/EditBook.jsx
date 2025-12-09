@@ -85,7 +85,7 @@ const EditBook = () => {
     <>
       <Navbar />
 
-      <div className="flex flex-col items-center px-6 py-10 mx-auto max-w-2xl">
+      <div className="flex flex-col items-center px-6 py-10 mx-auto max-w-2xl pt-28">
         <div className="w-full bg-white rounded-xl shadow-lg p-6 md:p-8">
           <h1 className="text-2xl font-bold text-gray-900 mb-6">
             Edit Book Details

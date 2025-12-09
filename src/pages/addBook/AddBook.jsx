@@ -59,7 +59,7 @@ const AddBook = () => {
     <>
       <Navbar />
 
-      <div className="flex flex-col items-center justify-center px-6 py-8 mx-auto md:h-screen">
+      <div className="flex flex-col items-center justify-center px-6 py-8 mx-auto md:h-screen pt-28">
         <div className="w-full bg-white rounded-xl shadow-lg sm:max-w-md p-6 md:p-8">
           <h1 className="text-2xl font-bold text-gray-900 mb-6">
             Add New Book
