@@ -3,7 +3,8 @@ import Navbar from "../components/Navbar";
 import Card from "../components/Card";
 import axios from "axios";
 import Footer from "../components/Footer";
-import HeroCarousel from "../components/HeroCarousel";
+import SmallHeroCarousel from "../components/SmallHeroCarousel";
+
 
 const Home = () => {
   const [books, setBooks] = useState([]);
@@ -23,6 +24,11 @@ const Home = () => {
   const filteredBooks = books.filter((b) =>
     b.bookName.toLowerCase().includes(search.toLowerCase())
   );
+  const slides = [
+    "/bgasitis.jpg",
+    "/giftbtgod.jpg",
+    "/meditation.jpg",
+  ];
 
   return (
     <>
@@ -32,7 +38,12 @@ const Home = () => {
       <div className="pt-16 px-4">
 
         {/* -------------------- HERO SECTION -------------------- */}
-        <HeroCarousel/>
+       
+
+        <section className="mt-12">
+          <h2 className="text-2xl font-semibold mb-4">Featured Banners</h2>
+          <SmallHeroCarousel slides={slides} />
+        </section>
 
         {/* -------------------- CATEGORY FILTER (UI only) -------------------- */}
         <section className="mt-10 flex flex-wrap gap-3 justify-center">
