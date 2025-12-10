@@ -1,5 +1,11 @@
 @import "tailwindcss";
 
+@layer base {
+  html, body {
+    transition: background-color 0.3s, color 0.3s;
+  }
+}
+
 /* Add all your utilities under Tailwind layers */
 @layer utilities {
   /* Hide horizontal scrollbar but keep scroll functionality */
@@ -26,8 +32,4 @@
 }
 
 /* Put transitions in base layer so dark mode overrides work */
-@layer base {
-  html, body {
-    transition: background-color 0.3s, color 0.3s;
-  }
-}
+
