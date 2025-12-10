@@ -70,7 +70,7 @@ const SingleBook = () => {
           </nav>
 
           {/* Main Book Container */}
-          <div className="bg-white shadow-lg rounded-2xl overflow-hidden border border-gray-200 flex flex-col md:flex-row">
+          <div className="bg-white shadow-lg rounded-2xl overflow-hidden border border-gray-200 flex flex-col md:flex-row transition-colors duration-300">
 
             {/* Image with hover overlay */}
             <div
@@ -136,7 +136,7 @@ const SingleBook = () => {
 
           {/* Full Description Section */}
           {book.description && (
-            <section className="mt-10 bg-white shadow rounded-xl p-6 border border-gray-200">
+            <section className="mt-10 bg-white shadow rounded-xl p-6 border border-gray-200 transition-colors duration-300">
               <h2 className="text-2xl font-semibold mb-4">Description</h2>
               <p className="text-gray-700 leading-relaxed">{book.description}</p>
             </section>
