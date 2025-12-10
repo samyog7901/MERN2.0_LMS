@@ -6,37 +6,37 @@ const DarkModeToggle = () => {
 
   useEffect(() => {
     setMounted(true);
-  }, []);
-
-
-
-  // load user preference from localStorage
-  useEffect(() => {
     const saved = localStorage.getItem("dark");
     if (saved === "true") {
+      document.documentElement.classList.add("dark");
+      setIsDark(true);
+    } else if (!saved && window.matchMedia("(prefers-color-scheme: dark)").matches) {
       document.documentElement.classList.add("dark");
       setIsDark(true);
     }
   }, []);
 
   const toggleDark = () => {
+    const root = document.documentElement;
     if (isDark) {
-      document.documentElement.classList.remove("dark");
+      root.classList.remove("dark");
       localStorage.setItem("dark", "false");
       setIsDark(false);
     } else {
-      document.documentElement.classList.add("dark");
+      root.classList.add("dark");
       localStorage.setItem("dark", "true");
       setIsDark(true);
     }
   };
+
   if (!mounted) return null;
 
   return (
     <button
       onClick={toggleDark}
       className="w-10 h-10 flex items-center justify-center rounded-full 
-                 bg-gray-200 dark:bg-gray-700 transition-all duration-300"
+                 bg-gray-200 dark:bg-gray-700 hover:bg-gray-300 dark:hover:bg-gray-600 
+                 transition-all duration-300"
     >
       {isDark ? (
         // Moon icon

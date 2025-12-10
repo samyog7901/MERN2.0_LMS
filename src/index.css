@@ -20,9 +20,10 @@
 .animate-scrollInfinite {
     animation: scrollInfinite 25s linear infinite;
 }
-html {
+html,body {
   transition: background-color 0.3s, color 0.3s;
 }
+
   
   
 
