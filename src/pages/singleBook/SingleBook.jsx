@@ -90,13 +90,13 @@ const SingleBook = () => {
             </div>
 
             {/* Book Details */}
-            <div className="md:w-2/3 p-8 flex flex-col justify-between">
+            <div className="md:w-2/3 p-8 flex flex-col justify-between dark:text-gray-200">
               <div>
                 <span className="inline-block mb-2 px-3 py-1 text-xs bg-amber-100 text-amber-800 rounded-full">
                   {book.publication || "Category"}
                 </span>
 
-                <h1 className="text-3xl font-bold text-gray-900">{book.bookName}</h1>
+                <h1 className="text-3xl font-bold text-gray-900 dark:text-gray-200">{book.bookName}</h1>
                 <p className="mt-2 text-xl font-semibold text-green-600">
                   Rs. {book.bookPrice}
                 </p>
@@ -124,10 +124,10 @@ const SingleBook = () => {
 
               {/* Action buttons */}
               <div className="mt-8 flex flex-wrap gap-4">
-                <button className="flex-1 px-5 py-3 bg-blue-600 text-white rounded-xl shadow hover:bg-blue-700 transition">
+                <button className="flex-1 px-5 py-3 bg-blue-600 text-white rounded-xl shadow hover:bg-blue-700 transition dark:bg-gray-900 dark:hover:bg-gray-700 dark:text-blue-600">
                   Buy Now
                 </button>
-                <button className="flex-1 px-5 py-3 bg-gray-200 text-gray-700 rounded-xl shadow hover:bg-gray-300 transition">
+                <button className="flex-1 px-5 py-3 bg-gray-200 text-gray-700 rounded-xl shadow hover:bg-gray-300 transition dark:text-white dark:bg-gray-800 dark:hover:bg-gray-600">
                   Add to Wishlist
                 </button>
               </div>
@@ -136,9 +136,9 @@ const SingleBook = () => {
 
           {/* Full Description Section */}
           {book.description && (
-            <section className="mt-10 bg-white shadow rounded-xl p-6 border border-gray-200 transition-colors duration-300 dark:bg-gray-900 dark:text-gray-200">
+            <section className="mt-10 bg-white shadow rounded-xl p-6 border border-gray-200 transition-colors duration-300 dark:bg-gray-900 dark:text-gray-100">
               <h2 className="text-2xl font-semibold mb-4">Description</h2>
-              <p className="text-gray-700 leading-relaxed dark:text-gray-100">{book.description}</p>
+              <p className="text-gray-700 leading-relaxed dark:text-gray-200">{book.description}</p>
             </section>
           )}
 
