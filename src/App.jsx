@@ -11,17 +11,11 @@ const App = () => {
     <Route path="/book/:id" element={<SingleBook />}/>
     <Route path="/addBook" element={<AddBook />}/>
     <Route path="/editBook/:id" element={<EditBook />}/>
+    <Route path="/dark-test" element={<DarkModeTest />} />
    </Routes>
    </BrowserRouter>
 
   )
 }
 
-export default  function App()
-{
-  return (
-    <div className="bg-white dark:bg-gray-900 text-black dark:text-white min-h-screen flex items-center justify-center">
-      <h1 className="text-3xl font-bold">Dark Mode Test</h1>
-    </div>
-  );
-}
+export default App
