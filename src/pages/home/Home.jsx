@@ -36,7 +36,7 @@ const Home = () => {
       <Navbar />
 
       {/* Prevent navbar overlap */}
-      <div className="pt-28 px-4">
+      <div className="pt-35 px-4">
 
         {/* HERO SECTION */}
         <section>
