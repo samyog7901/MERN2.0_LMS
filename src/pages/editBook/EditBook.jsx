@@ -85,11 +85,9 @@ const EditBook = () => {
     <>
       <Navbar />
 
-      <div className="flex flex-col items-center px-6 py-10 mx-auto max-w-2xl pt-28">
-        <div className="w-full bg-white rounded-xl shadow-lg p-6 md:p-8">
-          <h1 className="text-2xl font-bold text-gray-900 mb-6">
-            Edit Book Details
-          </h1>
+      <div className="flex flex-col items-center px-6 py-10 mx-auto max-w-2xl pt-28 bg-gray-50 dark:bg-gray-900 text-gray-900 dark:text-gray-100">
+      <div className="w-full bg-white dark:bg-gray-800 rounded-xl shadow-lg dark:shadow-gray-700 p-6 md:p-8">
+        <h1 className="text-2xl font-bold mb-6 text-center">Edit Book Details</h1>
 
           {/* Image Preview */}
           <div className="flex justify-center mb-6">
