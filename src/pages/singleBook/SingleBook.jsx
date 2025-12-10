@@ -51,7 +51,7 @@ const SingleBook = () => {
   return (
     <>
       <Navbar />
-      <div className="min-h-screen bg-gray-50 dark:bg-gray-900  text-gray-900 dark:text-gray-100  pt-28 pb-16 px-4 transition-colors duration-300">
+      <div className="min-h-screen bg-gray-50 dark:bg-gray-900  text-gray-900 dark:text-gray-100  pt-26 pb-16 px-4 transition-colors duration-300">
         <div className="max-w-6xl mx-auto">
 
           {/* Breadcrumb */}
@@ -124,7 +124,7 @@ const SingleBook = () => {
 
               {/* Action buttons */}
               <div className="mt-8 flex flex-wrap gap-4">
-                <button className="flex-1 px-5 py-3 bg-blue-600 text-white rounded-xl shadow hover:bg-blue-700 transition dark:bg-gray-400 dark:hover:bg-gray-700 dark:text-blue-600">
+                <button className="flex-1 px-5 py-3 bg-blue-600 text-white rounded-xl shadow hover:bg-blue-700 transition dark:bg-gray-400 dark:hover:bg-gray-500 dark:text-blue-600">
                   Buy Now
                 </button>
                 <button className="flex-1 px-5 py-3 bg-gray-200 text-gray-700 rounded-xl shadow hover:bg-gray-300 transition dark:text-white dark:bg-gray-800 dark:hover:bg-gray-600">

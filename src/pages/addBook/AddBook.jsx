@@ -60,7 +60,7 @@ const AddBook = () => {
 
             {/* Book Name */}
             <div>
-              <label htmlFor="bookName" className="block text-sm font-medium text-gray-700">
+              <label htmlFor="bookName" className="block text-sm font-medium text-gray-700 dark:text-gr">
                 Book Name
               </label>
               <input
@@ -68,13 +68,13 @@ const AddBook = () => {
                 name="bookName"
                 onChange={handleChange}
                 required
-                className="mt-1 w-full p-3 border border-gray-300 rounded-lg bg-gray-50 focus:ring-2 focus:ring-amber-500 outline-none"
+                className="mt-1 w-full p-3 border border-gray-300 rounded-lg bg-gray-50 dark:bg-gray-700 dark:text-gray-200 focus:ring-2 focus:ring-amber-500 outline-none"
               />
             </div>
 
             {/* Book Price */}
             <div>
-              <label htmlFor="bookPrice" className="block text-sm font-medium text-gray-700">
+              <label htmlFor="bookPrice" className="block text-sm font-medium text-gray-700 dark:text-gr">
                 Book Price
               </label>
               <input
@@ -82,13 +82,13 @@ const AddBook = () => {
                 name="bookPrice"
                 onChange={handleChange}
                 required
-                className="mt-1 w-full p-3 border border-gray-300 rounded-lg bg-gray-50 focus:ring-2 focus:ring-amber-500 outline-none"
+                className="mt-1 w-full p-3 border border-gray-300 rounded-lg bg-gray-50 dark:bg-gray-700 dark:text-gray-200 focus:ring-2 focus:ring-amber-500 outline-none"
               />
             </div>
 
             {/* ISBN Number */}
             <div>
-              <label htmlFor="isbnNumber" className="block text-sm font-medium text-gray-700">
+              <label htmlFor="isbnNumber" className="block text-sm font-medium text-gray-700 dark:text-gr">
                 ISBN Number
               </label>
               <input
@@ -96,13 +96,13 @@ const AddBook = () => {
                 name="isbnNumber"
                 onChange={handleChange}
                 required
-                className="mt-1 w-full p-3 border border-gray-300 rounded-lg bg-gray-50 focus:ring-2 focus:ring-amber-500 outline-none"
+                className="mt-1 w-full p-3 border border-gray-300 rounded-lg bg-gray-50 dark:bg-gray-700 dark:text-gray-200 focus:ring-2 focus:ring-amber-500 outline-none"
               />
             </div>
 
             {/* Author Name */}
             <div>
-              <label htmlFor="authorName" className="block text-sm font-medium text-gray-700">
+              <label htmlFor="authorName" className="block text-sm font-medium text-gray-700 dark:text-gr">
                 Author Name
               </label>
               <input
@@ -110,13 +110,13 @@ const AddBook = () => {
                 name="authorName"
                 onChange={handleChange}
                 required
-                className="mt-1 w-full p-3 border border-gray-300 rounded-lg bg-gray-50 focus:ring-2 focus:ring-amber-500 outline-none"
+                className="mt-1 w-full p-3 border border-gray-300 rounded-lg bg-gray-50 dark:bg-gray-700 dark:text-gray-200 focus:ring-2 focus:ring-amber-500 outline-none"
               />
             </div>
 
             {/* Publication */}
             <div>
-              <label htmlFor="publication" className="block text-sm font-medium text-gray-700">
+              <label htmlFor="publication" className="block text-sm font-medium text-gray-700 dark:text-gr">
                 Publication
               </label>
               <input
@@ -124,13 +124,13 @@ const AddBook = () => {
                 name="publication"
                 onChange={handleChange}
                 required
-                className="mt-1 w-full p-3 border border-gray-300 rounded-lg bg-gray-50 focus:ring-2 focus:ring-amber-500 outline-none"
+                className="mt-1 w-full p-3 border border-gray-300 rounded-lg bg-gray-50 dark:bg-gray-700 dark:text-gray-200 focus:ring-2 focus:ring-amber-500 outline-none"
               />
             </div>
 
             {/* Published Date */}
             <div>
-              <label htmlFor="publishedAt" className="block text-sm font-medium text-gray-700">
+              <label htmlFor="publishedAt" className="block text-sm font-medium text-gray-700 dark:text-gr">
                 Published Date
               </label>
               <input
@@ -138,13 +138,13 @@ const AddBook = () => {
                 name="publishedAt"
                 onChange={handleChange}
                 required
-                className="mt-1 w-full p-3 border border-gray-300 rounded-lg bg-gray-50 focus:ring-2 focus:ring-amber-500 outline-none"
+                className="mt-1 w-full p-3 border border-gray-300 rounded-lg bg-gray-50 dark:bg-gray-700 dark:text-gray-200 focus:ring-2 focus:ring-amber-500 outline-none"
               />
             </div>
 
             {/* Description */}
             <div>
-              <label htmlFor="description" className="block text-sm font-medium text-gray-700">
+              <label htmlFor="description" className="block text-sm font-medium text-gray-700 dark:text-gr">
                 Description
               </label>
               <textarea
@@ -152,13 +152,13 @@ const AddBook = () => {
                 onChange={handleChange}
                 rows={5}
                 placeholder="Enter book description..."
-                className="mt-1 w-full p-3 border border-gray-300 rounded-lg bg-gray-50 resize-none focus:ring-2 focus:ring-amber-500 outline-none"
+                className="mt-1 w-full p-3 border border-gray-300 rounded-lg bg-gray-50 dark:bg-gray-700 dark:text-gray-200 resize-none focus:ring-2 focus:ring-amber-500 outline-none"
               ></textarea>
             </div>
 
             {/* Image Upload */}
             <div>
-              <label htmlFor="image" className="block text-sm font-medium text-gray-700">
+              <label htmlFor="image" className="block text-sm font-medium text-gray-700 dark:text-gr">
                 Book Image (optional)
               </label>
               <input
