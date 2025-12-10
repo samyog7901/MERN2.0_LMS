@@ -2,6 +2,13 @@ import React, { useEffect, useState } from "react";
 
 const DarkModeToggle = () => {
   const [isDark, setIsDark] = useState(false);
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  if (!mounted) return null;
 
   // load user preference from localStorage
   useEffect(() => {

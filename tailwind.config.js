@@ -4,7 +4,7 @@ export default {
     theme: {
       extend: {},
     },
-    darkMode: "class", // enable dark mode
+    darkMode: "className", // enable dark mode
     plugins: [],
   };
   
