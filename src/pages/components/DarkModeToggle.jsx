@@ -1,39 +1,12 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
+import { useTheme } from "./ThemeContext";
 
 const DarkModeToggle = () => {
-  const [isDark, setIsDark] = useState(false);
-  const [mounted, setMounted] = useState(false);
-
-  useEffect(() => {
-    setMounted(true);
-    const saved = localStorage.getItem("dark");
-    if (saved === "true") {
-      document.documentElement.classList.add("dark");
-      setIsDark(true);
-    } else if (!saved && window.matchMedia("(prefers-color-scheme: dark)").matches) {
-      document.documentElement.classList.add("dark");
-      setIsDark(true);
-    }
-  }, []);
-
-  const toggleDark = () => {
-    const root = document.documentElement;
-    if (isDark) {
-      root.classList.remove("dark");
-      localStorage.setItem("dark", "false");
-      setIsDark(false);
-    } else {
-      root.classList.add("dark");
-      localStorage.setItem("dark", "true");
-      setIsDark(true);
-    }
-  };
-
-  if (!mounted) return null;
+  const { isDark, toggleTheme } = useTheme();
 
   return (
     <button
-      onClick={toggleDark}
+      onClick={toggleTheme}
       className="w-10 h-10 flex items-center justify-center rounded-full 
                  bg-gray-200 dark:bg-gray-700 hover:bg-gray-300 dark:hover:bg-gray-600 
                  transition-all duration-300"
