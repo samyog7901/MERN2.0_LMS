@@ -3,25 +3,32 @@ import React, { useEffect, useRef } from "react";
 const SmallHeroCarousel = ({ slides }) => {
   const containerRef = useRef(null);
 
+  // Duplicate for smooth looping
+  const duplicatedSlides = [...slides, ...slides];
+
   useEffect(() => {
     const container = containerRef.current;
-    let scrollAmount = 0;
-    const speed = 1; // pixels per frame
+    if (!container) return;
+
+    let index = 0;
+
+    const slideWidth = container.firstChild?.offsetWidth || 200;
+
     const interval = setInterval(() => {
-      if (container) {
-        scrollAmount += speed;
-        if (scrollAmount >= container.scrollWidth / 2) {
-          scrollAmount = 0; // loop
-        }
-        container.scrollLeft = scrollAmount;
+      index++;
+
+      if (index >= duplicatedSlides.length) {
+        index = 0;
       }
-    }, 16); // ~60fps
+
+      container.scrollTo({
+        left: index * slideWidth,
+        behavior: "smooth",
+      });
+    }, 3000); // slide every 3 seconds
 
     return () => clearInterval(interval);
-  }, []);
-
-  // Duplicate slides for seamless scroll
-  const duplicatedSlides = [...slides, ...slides, ...slides, ...slides];
+  }, [slides]);
 
   return (
     <div
@@ -31,7 +38,15 @@ const SmallHeroCarousel = ({ slides }) => {
       {duplicatedSlides.map((url, idx) => (
         <div
           key={idx}
-          className="flex-none w-40 sm:w-48 h-60 rounded-xl overflow-hidden shadow-md bg-gray-100"
+          className="
+            flex-none 
+            w-[75%]       /* mobile: shows 1 */
+            sm:w-[40%]    /* tablet: shows 2 */
+            md:w-[30%]    /* desktop: shows 3 */
+            lg:w-[28%]    
+            h-52 sm:h-60 
+            rounded-xl overflow-hidden shadow-md bg-gray-100
+          "
         >
           <img
             src={url}
