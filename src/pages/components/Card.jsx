@@ -15,7 +15,7 @@ const Card = ({ book }) => {
       />
 
       {/* Overlay */}
-      <div className="absolute inset-0 bg-black bg-opacity-60 opacity-0 hover:opacity-100 transition-opacity text-white p-3 flex flex-col justify-between">
+      <div className="absolute inset-0 bg-transparent bg-opacity-60 opacity-0 hover:opacity-100 transition-opacity text-white p-3 flex flex-col justify-between">
         <div className="text-sm h-20 overflow-y-auto">
           {book.description || "No description available for this book."}
         </div>
