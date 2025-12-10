@@ -40,8 +40,8 @@ const Home = () => {
         {/* -------------------- HERO SECTION -------------------- */}
        
 
-        <section className="mt-12">
-          <h2 className="text-2xl font-semibold mb-4">Featured Banners</h2>
+        <section>
+
           <SmallHeroCarousel slides={slides} />
         </section>
 
