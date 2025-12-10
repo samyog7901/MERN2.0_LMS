@@ -8,7 +8,7 @@ const DarkModeToggle = () => {
     setMounted(true);
   }, []);
 
-  if (!mounted) return null;
+
 
   // load user preference from localStorage
   useEffect(() => {
@@ -30,6 +30,7 @@ const DarkModeToggle = () => {
       setIsDark(true);
     }
   };
+  if (!mounted) return null;
 
   return (
     <button
