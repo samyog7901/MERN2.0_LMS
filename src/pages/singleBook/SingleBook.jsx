@@ -115,7 +115,7 @@ const SingleBook = () => {
               </div>
 
               {/* Author & details */}
-              <div className="mt-6 text-gray-700 space-y-2 text-sm">
+              <div className="mt-6 text-gray-700 dark:text-gray-300 space-y-2 text-sm">
                 <p><span className="font-semibold">Author:</span> {book.authorName}</p>
                 <p><span className="font-semibold">ISBN:</span> {book.isbnNumber}</p>
                 <p><span className="font-semibold">Publication:</span> {book.publication}</p>
@@ -124,7 +124,7 @@ const SingleBook = () => {
 
               {/* Action buttons */}
               <div className="mt-8 flex flex-wrap gap-4">
-                <button className="flex-1 px-5 py-3 bg-blue-600 text-white rounded-xl shadow hover:bg-blue-700 transition dark:bg-gray-900 dark:hover:bg-gray-700 dark:text-blue-600">
+                <button className="flex-1 px-5 py-3 bg-blue-600 text-white rounded-xl shadow hover:bg-blue-700 transition dark:bg-gray-400 dark:hover:bg-gray-700 dark:text-blue-600">
                   Buy Now
                 </button>
                 <button className="flex-1 px-5 py-3 bg-gray-200 text-gray-700 rounded-xl shadow hover:bg-gray-300 transition dark:text-white dark:bg-gray-800 dark:hover:bg-gray-600">
