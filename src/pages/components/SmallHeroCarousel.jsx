@@ -30,7 +30,7 @@ const SmallHeroCarousel = ({ slides }) => {
         currentIndex = 0;
         container.scrollLeft = 0;
       }
-    }, 2500); // every 2.5 seconds, move one slide
+    }, 5000); // every 5 seconds, move one slide
 
     return () => clearInterval(interval);
   }, []);
@@ -46,7 +46,7 @@ const SmallHeroCarousel = ({ slides }) => {
           className="
             flex-none 
             w-[75%] sm:w-[40%] md:w-[30%] lg:w-[28%]
-            h-52 sm:h-60 
+            h-60 sm:h-60 
             rounded-xl overflow-hidden shadow-md
           "
         >
