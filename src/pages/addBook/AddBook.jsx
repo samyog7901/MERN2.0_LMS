@@ -52,7 +52,7 @@ const AddBook = () => {
     <>
       <Navbar />
 
-      <div className="pt-10 min-h-[calc(100vh-64px)] bg-gray-50 dark:bg-gray-900 flex items-start justify-center pb-12">
+      <div className="min-h-[calc(100vh-64px)] bg-gray-50 dark:bg-gray-900 flex items-start justify-center pb-12">
       <div className="w-full max-w-lg bg-white dark:bg-gray-800 rounded-xl shadow-md dark:shadow-gray-700 p-8 mt-6 text-gray-900 dark:text-gray-100">
         <h1 className="text-2xl font-bold mb-6 text-center">Add New Book</h1>
 
