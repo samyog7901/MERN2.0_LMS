@@ -40,7 +40,7 @@ const SmallHeroCarousel = ({ slides }) => {
           className="
             flex-none 
             w-[75%] sm:w-[40%] md:w-[30%] lg:w-[28%]
-            h-70 sm:h-65
+            h-75 sm:h-65
             rounded-xl overflow-hidden shadow-md
           "
         >
