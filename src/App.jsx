@@ -4,9 +4,11 @@ import SingleBook from './pages/singleBook/SingleBook'
 import AddBook from './pages/addBook/AddBook'
 import EditBook from './pages/editBook/EditBook'
 import DarkModeTest from './pages/home/DarkModeTest'
+import ScrollToTop from './pages/components/ScrollToTop'
 const App = () => {
   return (
    <BrowserRouter>
+   <ScrollToTop/>
    <Routes>
     <Route path="/" element={<Home />}/>
     <Route path="/book/:id" element={<SingleBook />}/>
