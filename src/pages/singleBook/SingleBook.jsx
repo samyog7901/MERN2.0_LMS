@@ -51,7 +51,7 @@ const SingleBook = () => {
   return (
     <>
       <Navbar />
-      <div className="min-h-screen bg-gray-50 dark:bg-gray-900  text-gray-900 dark:text-gray-100  pt-26 pb-16 px-4 transition-colors duration-300">
+      <div className="min-h-screen bg-gray-50 dark:bg-gray-900  text-gray-900 dark:text-gray-100  pt-28 pb-16 px-4 transition-colors duration-300">
         <div className="max-w-6xl mx-auto">
 
           {/* Breadcrumb */}
