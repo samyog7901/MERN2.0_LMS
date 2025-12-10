@@ -141,7 +141,6 @@ const Navbar = () => {
       </nav>
 
       {/* Push Body Down */}
-      <div className="h-5 md:h-[140px]"></div>
     </>
   );
 };
