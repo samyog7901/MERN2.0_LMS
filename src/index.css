@@ -8,6 +8,19 @@
     -ms-overflow-style: none;  /* IE and Edge */
     scrollbar-width: none;  /* Firefox */
 }
+@keyframes scrollInfinite {
+    0% {
+      transform: translateX(0);
+    }
+    100% {
+      transform: translateX(-50%);
+    }
+}
+  
+.animate-scrollInfinite {
+    animation: scrollInfinite 25s linear infinite;
+}
+  
   
 
 
