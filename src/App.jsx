@@ -3,6 +3,7 @@ import Home from './pages/home/Home'
 import SingleBook from './pages/singleBook/SingleBook'
 import AddBook from './pages/addBook/AddBook'
 import EditBook from './pages/editBook/EditBook'
+import DarkModeTest from './pages/home/DarkModeTest'
 const App = () => {
   return (
    <BrowserRouter>
