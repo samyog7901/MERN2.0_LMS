@@ -1,10 +1,14 @@
+/* Tailwind Preflight (base styles) */
 @import "tailwindcss/preflight";
 
-/* Tailwind components */
-@import "tailwindcss/components";
+/* Custom components & utilities */
+@layer components {
+  /* put your custom component styles here */
+}
 
-/* Tailwind utilities */
-@import "tailwindcss/utilities";
+@layer utilities {
+  /* put your custom utility classes here */
+}
 
 /* Hide horizontal scrollbar but keep scroll functionality */
 .hide-scrollbar::-webkit-scrollbar {
