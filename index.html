@@ -6,11 +6,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Samyog Tailwind</title>
     <!-- index.html inside <head> -->
-    <script>
-      if (localStorage.getItem("dark") === "true") {
-        document.documentElement.classList.add("dark");
-      }
-    </script>
+      <script>
+        (() => {
+          if (localStorage.getItem('dark') === 'true') {
+            document.documentElement.classList.add('dark');
+          }
+        })();
+      </script>
 
   </head>
   <body>
