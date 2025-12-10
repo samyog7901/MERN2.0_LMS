@@ -1,4 +1,6 @@
-@import "tailwindcss";
+@import "tailwindcss/base";
+@import "tailwindcss/components";
+@import "tailwindcss/utilities";
 
 /* Hide horizontal scrollbar but keep scroll functionality */
 .hide-scrollbar::-webkit-scrollbar {
@@ -23,7 +25,9 @@
 html,body {
   transition: background-color 0.3s, color 0.3s;
 }
-
+body {
+  @apply bg-white text-black dark:bg-gray-900 dark:text-white;
+}
   
   
 
