@@ -1,14 +1,4 @@
-/* Tailwind Preflight (base styles) */
-@import "tailwindcss/preflight";
-
-/* Custom components & utilities */
-@layer components {
-  /* put your custom component styles here */
-}
-
-@layer utilities {
-  /* put your custom utility classes here */
-}
+@import "tailwindcss";
 
 /* Hide horizontal scrollbar but keep scroll functionality */
 .hide-scrollbar::-webkit-scrollbar {
@@ -29,6 +19,9 @@
   
 .animate-scrollInfinite {
     animation: scrollInfinite 25s linear infinite;
+}
+html {
+  transition: background-color 0.3s, color 0.3s;
 }
   
   
