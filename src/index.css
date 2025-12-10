@@ -1,26 +1,33 @@
 @import "tailwindcss";
 
-html, body {
-  transition: background-color 0.3s, color 0.3s;
+/* Add all your utilities under Tailwind layers */
+@layer utilities {
+  /* Hide horizontal scrollbar but keep scroll functionality */
+  .hide-scrollbar::-webkit-scrollbar {
+      display: none;
+  }
+  .hide-scrollbar {
+      -ms-overflow-style: none;  
+      scrollbar-width: none;  
+  }
+
+  @keyframes scrollInfinite {
+      0% {
+        transform: translateX(0);
+      }
+      100% {
+        transform: translateX(-50%);
+      }
+  }
+
+  .animate-scrollInfinite {
+      animation: scrollInfinite 25s linear infinite;
+  }
 }
 
-.hide-scrollbar::-webkit-scrollbar {
-  display: none;
-}
-.hide-scrollbar {
-  scrollbar-width: none;
-}
-
-@keyframes scrollInfinite {
-  0% { transform: translateX(0); }
-  100% { transform: translateX(-50%); }
-}
-
-.animate-scrollInfinite {
-  animation: scrollInfinite 25s linear infinite;
-}
-
-/* Optional but recommended */
-body {
-  @apply bg-white text-black dark:bg-gray-900 dark:text-white;
+/* Put transitions in base layer so dark mode overrides work */
+@layer base {
+  html, body {
+    transition: background-color 0.3s, color 0.3s;
+  }
 }

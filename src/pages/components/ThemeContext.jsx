@@ -1,41 +1,29 @@
-import React, { createContext, useContext, useEffect, useState } from "react";
+import React, { createContext, useEffect, useState } from "react";
 
-const ThemeContext = createContext();
-export const useTheme = () => useContext(ThemeContext);
+export const ThemeContext = createContext();
 
 export const ThemeProvider = ({ children }) => {
-  const [isDark, setIsDark] = useState(false);
-  const [mounted, setMounted] = useState(false);
+  const [dark, setDark] = useState(false);
 
   useEffect(() => {
-    setMounted(true);
     const saved = localStorage.getItem("dark");
-    if (saved === "true") {
-      document.documentElement.classList.add("dark");
-      setIsDark(true);
-    } else if (!saved && window.matchMedia("(prefers-color-scheme: dark)").matches) {
-      document.documentElement.classList.add("dark");
-      setIsDark(true);
-    }
+    if (saved === "true") setDark(true);
   }, []);
 
-  const toggleTheme = () => {
-    const root = document.documentElement;
-    if (isDark) {
-      root.classList.remove("dark");
-      localStorage.setItem("dark", "false");
-      setIsDark(false);
-    } else {
-      root.classList.add("dark");
+  useEffect(() => {
+    if (dark) {
+      document.documentElement.classList.add("dark");
       localStorage.setItem("dark", "true");
-      setIsDark(true);
+    } else {
+      document.documentElement.classList.remove("dark");
+      localStorage.setItem("dark", "false");
     }
-  };
+  }, [dark]);
 
-  if (!mounted) return null;
+  const toggleDark = () => setDark(!dark);
 
   return (
-    <ThemeContext.Provider value={{ isDark, toggleTheme }}>
+    <ThemeContext.Provider value={{ dark, toggleDark }}>
       {children}
     </ThemeContext.Provider>
   );
