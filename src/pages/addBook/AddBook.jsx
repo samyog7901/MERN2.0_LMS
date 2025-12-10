@@ -52,7 +52,7 @@ const AddBook = () => {
     <>
       <Navbar />
 
-      <div className="pt-16 min-h-[calc(100vh-64px)] bg-gray-50 dark:bg-gray-900 flex items-start justify-center pb-12">
+      <div className="pt-10 min-h-[calc(100vh-64px)] bg-gray-50 dark:bg-gray-900 flex items-start justify-center pb-12">
       <div className="w-full max-w-lg bg-white dark:bg-gray-800 rounded-xl shadow-md dark:shadow-gray-700 p-8 mt-6 text-gray-900 dark:text-gray-100">
         <h1 className="text-2xl font-bold mb-6 text-center">Add New Book</h1>
 
@@ -60,7 +60,7 @@ const AddBook = () => {
 
             {/* Book Name */}
             <div>
-              <label htmlFor="bookName" className="block text-sm font-medium text-gray-700 dark:text-gr">
+              <label htmlFor="bookName" className="block text-sm font-medium text-gray-700 dark:text-gray-400">
                 Book Name
               </label>
               <input
@@ -74,7 +74,7 @@ const AddBook = () => {
 
             {/* Book Price */}
             <div>
-              <label htmlFor="bookPrice" className="block text-sm font-medium text-gray-700 dark:text-gr">
+              <label htmlFor="bookPrice" className="block text-sm font-medium text-gray-700 dark:text-gray-400">
                 Book Price
               </label>
               <input
@@ -88,7 +88,7 @@ const AddBook = () => {
 
             {/* ISBN Number */}
             <div>
-              <label htmlFor="isbnNumber" className="block text-sm font-medium text-gray-700 dark:text-gr">
+              <label htmlFor="isbnNumber" className="block text-sm font-medium text-gray-700 dark:text-gray-400">
                 ISBN Number
               </label>
               <input
@@ -102,7 +102,7 @@ const AddBook = () => {
 
             {/* Author Name */}
             <div>
-              <label htmlFor="authorName" className="block text-sm font-medium text-gray-700 dark:text-gr">
+              <label htmlFor="authorName" className="block text-sm font-medium text-gray-700 dark:text-gray-400">
                 Author Name
               </label>
               <input
@@ -116,7 +116,7 @@ const AddBook = () => {
 
             {/* Publication */}
             <div>
-              <label htmlFor="publication" className="block text-sm font-medium text-gray-700 dark:text-gr">
+              <label htmlFor="publication" className="block text-sm font-medium text-gray-700 dark:text-gray-400">
                 Publication
               </label>
               <input
@@ -130,7 +130,7 @@ const AddBook = () => {
 
             {/* Published Date */}
             <div>
-              <label htmlFor="publishedAt" className="block text-sm font-medium text-gray-700 dark:text-gr">
+              <label htmlFor="publishedAt" className="block text-sm font-medium text-gray-700 dark:text-gray-400">
                 Published Date
               </label>
               <input
@@ -144,7 +144,7 @@ const AddBook = () => {
 
             {/* Description */}
             <div>
-              <label htmlFor="description" className="block text-sm font-medium text-gray-700 dark:text-gr">
+              <label htmlFor="description" className="block text-sm font-medium text-gray-700 dark:text-gray-400">
                 Description
               </label>
               <textarea
@@ -158,7 +158,7 @@ const AddBook = () => {
 
             {/* Image Upload */}
             <div>
-              <label htmlFor="image" className="block text-sm font-medium text-gray-700 dark:text-gr">
+              <label htmlFor="image" className="block text-sm font-medium text-gray-700 dark:text-gray-400">
                 Book Image (optional)
               </label>
               <input
@@ -166,7 +166,7 @@ const AddBook = () => {
                 name="image"
                 accept="image/*"
                 onChange={(e) => setImage(e.target.files[0])}
-                className="mt-2 w-full text-sm border border-gray-300 rounded-lg p-2 bg-gray-50"
+                className="mt-2 w-full text-sm border border-gray-300 rounded-lg p-2 bg-gray-50 dark:text-gray-400"
               />
             </div>
 
