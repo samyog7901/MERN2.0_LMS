@@ -20,7 +20,7 @@ const SmallHeroCarousel = ({ slides }) => {
     currentIndexRef.current = 0;
     container.scrollLeft = 0;
 
-    const cardWidth = container.firstChild?.offsetWidth + 25;
+    const cardWidth = container.firstChild?.offsetWidth + 24;
 
     const start = () => {
       intervalRef.current = setInterval(() => {
@@ -28,7 +28,7 @@ const SmallHeroCarousel = ({ slides }) => {
 
         currentIndexRef.current++;
         container.scrollTo({
-          left: currentIndexRef.current * cardWidth-2,
+          left: currentIndexRef.current * cardWidth,
           behavior: "smooth",
         });
 
