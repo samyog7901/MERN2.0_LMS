@@ -24,7 +24,7 @@ const SmallHeroCarousel = ({ slides }) => {
 
     const start = () => {
       intervalRef.current = setInterval(() => {
-        if (userInteractedRef.current) return; // Stop if user interacted
+        if (userInteractedRef.current) return; // Stop if user clicked or swiped
 
         currentIndexRef.current++;
         container.scrollTo({
@@ -44,37 +44,10 @@ const SmallHeroCarousel = ({ slides }) => {
     return () => clearInterval(intervalRef.current);
   }, [infiniteSlides]);
 
-  // Handle hover pause/resume
-  const handleMouseEnter = () => clearInterval(intervalRef.current);
-
-  const handleMouseLeave = () => {
-    if (userInteractedRef.current) return;
-
-    const container = containerRef.current;
-    if (!container) return;
-
-    const cardWidth = container.firstChild?.offsetWidth + 24;
-
-    intervalRef.current = setInterval(() => {
-      if (userInteractedRef.current) return;
-
-      currentIndexRef.current++;
-      container.scrollTo({
-        left: currentIndexRef.current * cardWidth,
-        behavior: "smooth",
-      });
-
-      if (currentIndexRef.current > infiniteSlides.length - 8) {
-        currentIndexRef.current = 0;
-        container.scrollLeft = 0;
-      }
-    }, 5000);
-  };
-
-  // Handle swipe gestures
+  // Swipe support
   const handleTouchStart = (e) => {
     touchStartX.current = e.touches[0].clientX;
-    clearInterval(intervalRef.current);
+    clearInterval(intervalRef.current); // stop auto-scroll during swipe
   };
 
   const handleTouchMove = (e) => {
@@ -102,8 +75,6 @@ const SmallHeroCarousel = ({ slides }) => {
   return (
     <div
       ref={containerRef}
-      onMouseEnter={handleMouseEnter}
-      onMouseLeave={handleMouseLeave}
       onTouchStart={handleTouchStart}
       onTouchMove={handleTouchMove}
       onTouchEnd={handleTouchEnd}
