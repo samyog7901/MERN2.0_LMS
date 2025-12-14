@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 
 const SmallHeroCarousel = ({ slides }) => {
@@ -7,33 +7,25 @@ const SmallHeroCarousel = ({ slides }) => {
   const currentIndexRef = useRef(0);
   const userInteractedRef = useRef(false);
 
-  const drag = useRef({ startX: 0, scrollLeft: 0, isDragging: false });
-  const [slidesExtended, setSlidesExtended] = useState([]);
+  const touchStartX = useRef(0);
+  const touchEndX = useRef(0);
+  const isDragging = useRef(false);
+  const dragStartX = useRef(0);
+  const scrollStartX = useRef(0);
 
   const navigate = useNavigate();
 
-  const getCardWidth = () =>
-    containerRef.current?.firstChild?.offsetWidth + 24 || 0;
 
+
+  const getCardWidth = () => containerRef.current?.firstChild?.offsetWidth + 24 || 0;
+
+  // Auto-scroll
   useEffect(() => {
     const container = containerRef.current;
     if (!container) return;
 
     const cardWidth = getCardWidth();
-    if (!cardWidth) return;
-
-    const visibleSlides = Math.ceil(container.offsetWidth / cardWidth);
-
-    // Clone only enough slides for seamless infinite
-    const extended = [
-      ...slides.slice(-visibleSlides),
-      ...slides,
-      ...slides.slice(0, visibleSlides),
-    ];
-    setSlidesExtended(extended);
-
-    // Set initial scroll to the first real slide
-    currentIndexRef.current = visibleSlides;
+    currentIndexRef.current = slides.length; // start at real first slide
     container.scrollLeft = currentIndexRef.current * cardWidth;
 
     const startAutoScroll = () => {
@@ -46,12 +38,12 @@ const SmallHeroCarousel = ({ slides }) => {
           behavior: "smooth",
         });
 
-        // Handle seamless jump
-        if (currentIndexRef.current >= slides.length + visibleSlides) {
+        // Handle infinite jump
+        if (currentIndexRef.current >= slides.length * 2) {
           setTimeout(() => {
-            container.scrollLeft = visibleSlides * cardWidth;
-            currentIndexRef.current = visibleSlides;
-          }, 300);
+            container.scrollLeft = slides.length * cardWidth;
+            currentIndexRef.current = slides.length;
+          }, 300); // wait for smooth scroll to finish
         }
       }, 5000);
     };
@@ -60,46 +52,76 @@ const SmallHeroCarousel = ({ slides }) => {
     return () => clearInterval(intervalRef.current);
   }, [slides]);
 
+  // Snap to nearest slide
   const snapToSlide = () => {
     const container = containerRef.current;
     const cardWidth = getCardWidth();
-    let index = Math.round(container.scrollLeft / cardWidth);
+    const index = Math.round(container.scrollLeft / cardWidth);
     currentIndexRef.current = index;
     container.scrollTo({
       left: index * cardWidth,
       behavior: "smooth",
     });
 
-    // Infinite jump
-    const visibleSlides = Math.ceil(container.offsetWidth / cardWidth);
-    if (index < visibleSlides) {
+    // Handle infinite jump
+    if (currentIndexRef.current < slides.length) {
       setTimeout(() => {
-        container.scrollLeft = (slides.length + index) * cardWidth;
-        currentIndexRef.current = slides.length + index;
+        container.scrollLeft = (slides.length + currentIndexRef.current) * cardWidth;
+        currentIndexRef.current += slides.length;
       }, 300);
-    } else if (index >= slides.length + visibleSlides) {
+    } else if (currentIndexRef.current >= slides.length * 2) {
       setTimeout(() => {
-        container.scrollLeft = (index - slides.length) * cardWidth;
-        currentIndexRef.current = index - slides.length;
+        container.scrollLeft = (currentIndexRef.current - slides.length) * cardWidth;
+        currentIndexRef.current -= slides.length;
       }, 300);
     }
   };
 
-  // Drag & swipe handlers
-  const onDragStart = (x) => {
-    drag.current.isDragging = true;
-    drag.current.startX = x;
-    drag.current.scrollLeft = containerRef.current.scrollLeft;
+  // Swipe handlers
+  const handleTouchStart = (e) => {
+    touchStartX.current = e.touches[0].clientX;
+    clearInterval(intervalRef.current);
+    isDragging.current = true;
+    dragStartX.current = e.touches[0].clientX;
+    scrollStartX.current = containerRef.current.scrollLeft;
+  };
+
+  const handleTouchMove = (e) => {
+    if (!isDragging.current) return;
+    touchEndX.current = e.touches[0].clientX;
+    const dx = dragStartX.current - touchEndX.current;
+    containerRef.current.scrollLeft = scrollStartX.current + dx;
+  };
+
+  const handleTouchEnd = () => {
+    if (!isDragging.current) return;
+    isDragging.current = false;
+
+    const diff = touchStartX.current - touchEndX.current;
+    if (diff > 50) currentIndexRef.current++; // swipe left → next
+    if (diff < -50) currentIndexRef.current--; // swipe right → prev
+
+    snapToSlide();
+    userInteractedRef.current = true;
+  };
+
+  // Mouse drag support
+  const handleMouseDown = (e) => {
+    isDragging.current = true;
+    dragStartX.current = e.clientX;
+    scrollStartX.current = containerRef.current.scrollLeft;
     clearInterval(intervalRef.current);
   };
-  const onDragMove = (x) => {
-    if (!drag.current.isDragging) return;
-    const dx = drag.current.startX - x;
-    containerRef.current.scrollLeft = drag.current.scrollLeft + dx;
+
+  const handleMouseMove = (e) => {
+    if (!isDragging.current) return;
+    const dx = dragStartX.current - e.clientX;
+    containerRef.current.scrollLeft = scrollStartX.current + dx;
   };
-  const onDragEnd = () => {
-    if (!drag.current.isDragging) return;
-    drag.current.isDragging = false;
+
+  const handleMouseUp = () => {
+    if (!isDragging.current) return;
+    isDragging.current = false;
     snapToSlide();
     userInteractedRef.current = true;
   };
@@ -107,14 +129,14 @@ const SmallHeroCarousel = ({ slides }) => {
   return (
     <div
       ref={containerRef}
+      onTouchStart={handleTouchStart}
+      onTouchMove={handleTouchMove}
+      onTouchEnd={handleTouchEnd}
+      onMouseDown={handleMouseDown}
+      onMouseMove={handleMouseMove}
+      onMouseUp={handleMouseUp}
+      onMouseLeave={handleMouseUp}
       className="flex gap-6 overflow-x-hidden hide-scrollbar touch-pan-x cursor-grab"
-      onMouseDown={(e) => onDragStart(e.clientX)}
-      onMouseMove={(e) => onDragMove(e.clientX)}
-      onMouseUp={onDragEnd}
-      onMouseLeave={onDragEnd}
-      onTouchStart={(e) => onDragStart(e.touches[0].clientX)}
-      onTouchMove={(e) => onDragMove(e.touches[0].clientX)}
-      onTouchEnd={onDragEnd}
     >
       {slidesExtended.map((slide, idx) => (
         <div
@@ -122,9 +144,15 @@ const SmallHeroCarousel = ({ slides }) => {
           onClick={() => {
             userInteractedRef.current = true;
             clearInterval(intervalRef.current);
+            intervalRef.current = null;
             navigate(slide.link);
           }}
-          className="group cursor-pointer relative flex-none w-[80%] sm:w-[45%] md:w-[32%] lg:w-[28%] h-[260px] sm:h-[280px] md:h-[300px] rounded-xl overflow-hidden shadow-md dark:shadow-gray-700 transition-transform duration-300 hover:scale-[1.02]"
+          className="group cursor-pointer relative flex-none 
+            w-[80%] sm:w-[45%] md:w-[32%] lg:w-[28%] 
+            h-[260px] sm:h-[280px] md:h-[300px] 
+            rounded-xl overflow-hidden shadow-md 
+            dark:shadow-gray-700 transition-transform duration-300
+            hover:scale-[1.02]"
         >
           <img
             src={slide.image}
@@ -135,7 +163,12 @@ const SmallHeroCarousel = ({ slides }) => {
           <div className="absolute bottom-0 p-5 text-white">
             <h2 className="text-xl font-bold leading-tight">{slide.title}</h2>
             <p className="text-sm text-gray-200 mt-1">{slide.subtitle}</p>
-            <button className="mt-3 inline-flex items-center gap-2 px-4 py-2 bg-white/90 text-gray-900 rounded-full text-sm font-semibold group-hover:bg-white transition">
+            <button
+              className="mt-3 inline-flex items-center gap-2 
+                px-4 py-2 bg-white/90 text-gray-900 
+                rounded-full text-sm font-semibold
+                group-hover:bg-white transition"
+            >
               Explore
               <span className="group-hover:translate-x-1 transition">→</span>
             </button>
