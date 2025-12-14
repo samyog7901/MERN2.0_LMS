@@ -26,7 +26,27 @@ const Home = () => {
     b.bookName.toLowerCase().includes(search.toLowerCase())
   );
 
-  const slides = ["/bgasitis.jpg", "/giftbtgod.jpg", "/meditation.jpg"];
+  const slides = [
+    {
+      image: "/bgasitis.jpg",
+      title: "Bhagavad Gita As It Is",
+      subtitle: "Timeless wisdom for modern life",
+      link: "/category/bhagavad-gita",
+    },
+    {
+      image: "/giftbtgod.jpg",
+      title: "The Gift by God",
+      subtitle: "Discover divine purpose and peace",
+      link: "/category/spiritual",
+    },
+    {
+      image: "/meditation.jpg",
+      title: "Meditation & Mindfulness",
+      subtitle: "Inner calm, outer strength",
+      link: "/category/meditation",
+    },
+  ];
+  
 
   return (
     <div className="bg-gray-50 dark:bg-gray-900 
