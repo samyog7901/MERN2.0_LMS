@@ -15,7 +15,12 @@ const SmallHeroCarousel = ({ slides }) => {
 
   const navigate = useNavigate();
 
-
+  // Duplicate slides for seamless infinite effect
+  const slidesExtended = [
+    ...slides.slice(-slides.length), // prepend clone
+    ...slides,
+    ...slides.slice(0, slides.length), // append clone
+  ];
 
   const getCardWidth = () => containerRef.current?.firstChild?.offsetWidth + 24 || 0;
 
