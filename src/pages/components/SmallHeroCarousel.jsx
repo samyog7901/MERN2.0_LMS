@@ -3,6 +3,8 @@ import { useNavigate } from "react-router-dom";
 
 const SmallHeroCarousel = ({ slides }) => {
   const containerRef = useRef(null);
+  const intervalRef = useRef(null);
+
   const currentIndexRef = useRef(0);
   const navigate = useNavigate();
 
@@ -11,30 +13,61 @@ const SmallHeroCarousel = ({ slides }) => {
   useEffect(() => {
     const container = containerRef.current;
     if (!container) return;
-
+  
     const cardWidth = container.firstChild?.offsetWidth + 24;
-
-    const interval = setInterval(() => {
-      currentIndexRef.current++;
-      container.scrollTo({
-        left: currentIndexRef.current * cardWidth,
-        behavior: "smooth",
-      });
-
-      if (currentIndexRef.current > infiniteSlides.length - 8) {
-        currentIndexRef.current = 0;
-        container.scrollLeft = 0;
-      }
-    }, 5000);
-
-    return () => clearInterval(interval);
+  
+    const start = () => {
+      intervalRef.current = setInterval(() => {
+        currentIndexRef.current++;
+        container.scrollTo({
+          left: currentIndexRef.current * cardWidth,
+          behavior: "smooth",
+        });
+  
+        if (currentIndexRef.current > infiniteSlides.length - 8) {
+          currentIndexRef.current = 0;
+          container.scrollLeft = 0;
+        }
+      }, 5000);
+    };
+  
+    start();
+  
+    return () => clearInterval(intervalRef.current);
   }, []);
+  
 
   return (
     <div
       ref={containerRef}
+      onMouseEnter={() => clearInterval(intervalRef.current)}
+      onMouseLeave={() => {
+        clearInterval(intervalRef.current);
+        intervalRef.current = null;
+        if (intervalRef.current) return;
+
+
+        const container = containerRef.current;
+        if (!container) return;
+
+        const cardWidth = container.firstChild?.offsetWidth + 24;
+
+        intervalRef.current = setInterval(() => {
+          currentIndexRef.current++;
+          container.scrollTo({
+            left: currentIndexRef.current * cardWidth,
+            behavior: "smooth",
+          });
+
+          if (currentIndexRef.current > infiniteSlides.length - 8) {
+            currentIndexRef.current = 0;
+            container.scrollLeft = 0;
+          }
+        }, 5000);
+      }}
       className="flex gap-6 overflow-x-hidden hide-scrollbar"
     >
+
       {infiniteSlides.map((slide, idx) => (
         <div
           key={idx}
