@@ -6,36 +6,25 @@ const SmallHeroCarousel = ({ slides }) => {
   const intervalRef = useRef(null);
   const currentIndexRef = useRef(0);
   const userInteractedRef = useRef(false);
-
   const touchStartX = useRef(0);
   const touchEndX = useRef(0);
-  const isDragging = useRef(false);
-  const dragStartX = useRef(0);
-  const scrollStartX = useRef(0);
 
   const navigate = useNavigate();
+  const infiniteSlides = Array(10).fill(slides).flat();
 
-  // Duplicate slides for seamless infinite effect
-  const slidesExtended = [
-    ...slides.slice(-slides.length), // prepend clone
-    ...slides,
-    ...slides.slice(0, slides.length), // append clone
-  ];
-
-  const getCardWidth = () => containerRef.current?.firstChild?.offsetWidth + 24 || 0;
-
-  // Auto-scroll
+  // Start auto-scroll
   useEffect(() => {
     const container = containerRef.current;
     if (!container) return;
 
-    const cardWidth = getCardWidth();
-    currentIndexRef.current = slides.length; // start at real first slide
-    container.scrollLeft = currentIndexRef.current * cardWidth;
+    currentIndexRef.current = 0;
+    container.scrollLeft = 0;
 
-    const startAutoScroll = () => {
+    const cardWidth = container.firstChild?.offsetWidth + 24;
+
+    const start = () => {
       intervalRef.current = setInterval(() => {
-        if (userInteractedRef.current) return;
+        if (userInteractedRef.current) return; // Stop if user interacted
 
         currentIndexRef.current++;
         container.scrollTo({
@@ -43,111 +32,88 @@ const SmallHeroCarousel = ({ slides }) => {
           behavior: "smooth",
         });
 
-        // Handle infinite jump
-        if (currentIndexRef.current >= slides.length * 2) {
-          setTimeout(() => {
-            container.scrollLeft = slides.length * cardWidth;
-            currentIndexRef.current = slides.length;
-          }, 300); // wait for smooth scroll to finish
+        if (currentIndexRef.current > infiniteSlides.length - 8) {
+          currentIndexRef.current = 0;
+          container.scrollLeft = 0;
         }
       }, 5000);
     };
 
-    startAutoScroll();
+    start();
+
     return () => clearInterval(intervalRef.current);
-  }, [slides]);
+  }, [infiniteSlides]);
 
-  // Snap to nearest slide
-  const snapToSlide = () => {
+  // Handle hover pause/resume
+  const handleMouseEnter = () => clearInterval(intervalRef.current);
+
+  const handleMouseLeave = () => {
+    if (userInteractedRef.current) return;
+
     const container = containerRef.current;
-    const cardWidth = getCardWidth();
-    const index = Math.round(container.scrollLeft / cardWidth);
-    currentIndexRef.current = index;
-    container.scrollTo({
-      left: index * cardWidth,
-      behavior: "smooth",
-    });
+    if (!container) return;
 
-    // Handle infinite jump
-    if (currentIndexRef.current < slides.length) {
-      setTimeout(() => {
-        container.scrollLeft = (slides.length + currentIndexRef.current) * cardWidth;
-        currentIndexRef.current += slides.length;
-      }, 300);
-    } else if (currentIndexRef.current >= slides.length * 2) {
-      setTimeout(() => {
-        container.scrollLeft = (currentIndexRef.current - slides.length) * cardWidth;
-        currentIndexRef.current -= slides.length;
-      }, 300);
-    }
+    const cardWidth = container.firstChild?.offsetWidth + 24;
+
+    intervalRef.current = setInterval(() => {
+      if (userInteractedRef.current) return;
+
+      currentIndexRef.current++;
+      container.scrollTo({
+        left: currentIndexRef.current * cardWidth,
+        behavior: "smooth",
+      });
+
+      if (currentIndexRef.current > infiniteSlides.length - 8) {
+        currentIndexRef.current = 0;
+        container.scrollLeft = 0;
+      }
+    }, 5000);
   };
 
-  // Swipe handlers
+  // Handle swipe gestures
   const handleTouchStart = (e) => {
     touchStartX.current = e.touches[0].clientX;
     clearInterval(intervalRef.current);
-    isDragging.current = true;
-    dragStartX.current = e.touches[0].clientX;
-    scrollStartX.current = containerRef.current.scrollLeft;
   };
 
   const handleTouchMove = (e) => {
-    if (!isDragging.current) return;
     touchEndX.current = e.touches[0].clientX;
-    const dx = dragStartX.current - touchEndX.current;
-    containerRef.current.scrollLeft = scrollStartX.current + dx;
   };
 
   const handleTouchEnd = () => {
-    if (!isDragging.current) return;
-    isDragging.current = false;
+    const container = containerRef.current;
+    if (!container) return;
 
+    const cardWidth = container.firstChild?.offsetWidth + 24;
     const diff = touchStartX.current - touchEndX.current;
+
     if (diff > 50) currentIndexRef.current++; // swipe left → next
-    if (diff < -50) currentIndexRef.current--; // swipe right → prev
+    if (diff < -50) currentIndexRef.current = Math.max(0, currentIndexRef.current - 1); // swipe right → prev
 
-    snapToSlide();
-    userInteractedRef.current = true;
-  };
+    container.scrollTo({
+      left: currentIndexRef.current * cardWidth,
+      behavior: "smooth",
+    });
 
-  // Mouse drag support
-  const handleMouseDown = (e) => {
-    isDragging.current = true;
-    dragStartX.current = e.clientX;
-    scrollStartX.current = containerRef.current.scrollLeft;
-    clearInterval(intervalRef.current);
-  };
-
-  const handleMouseMove = (e) => {
-    if (!isDragging.current) return;
-    const dx = dragStartX.current - e.clientX;
-    containerRef.current.scrollLeft = scrollStartX.current + dx;
-  };
-
-  const handleMouseUp = () => {
-    if (!isDragging.current) return;
-    isDragging.current = false;
-    snapToSlide();
-    userInteractedRef.current = true;
+    userInteractedRef.current = true; // stop auto-scroll permanently after swipe
   };
 
   return (
     <div
       ref={containerRef}
+      onMouseEnter={handleMouseEnter}
+      onMouseLeave={handleMouseLeave}
       onTouchStart={handleTouchStart}
       onTouchMove={handleTouchMove}
       onTouchEnd={handleTouchEnd}
-      onMouseDown={handleMouseDown}
-      onMouseMove={handleMouseMove}
-      onMouseUp={handleMouseUp}
-      onMouseLeave={handleMouseUp}
-      className="flex gap-6 overflow-x-hidden hide-scrollbar touch-pan-x cursor-grab"
+      className="flex gap-6 overflow-x-hidden hide-scrollbar touch-pan-x"
     >
-      {slidesExtended.map((slide, idx) => (
+      {infiniteSlides.map((slide, idx) => (
         <div
           key={idx}
           onClick={() => {
-            userInteractedRef.current = true;
+            userInteractedRef.current = true; // stop auto-scroll after click
             clearInterval(intervalRef.current);
             intervalRef.current = null;
             navigate(slide.link);
@@ -159,12 +125,17 @@ const SmallHeroCarousel = ({ slides }) => {
             dark:shadow-gray-700 transition-transform duration-300
             hover:scale-[1.02]"
         >
+          {/* Background Image */}
           <img
             src={slide.image}
             alt={slide.title}
             className="absolute inset-0 w-full h-full object-cover"
           />
+
+          {/* Gradient Overlay */}
           <div className="absolute inset-0 bg-linear-to-t from-black/80 via-black/40 to-transparent"></div>
+
+          {/* Text Content */}
           <div className="absolute bottom-0 p-5 text-white">
             <h2 className="text-xl font-bold leading-tight">{slide.title}</h2>
             <p className="text-sm text-gray-200 mt-1">{slide.subtitle}</p>
