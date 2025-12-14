@@ -20,7 +20,7 @@ const SmallHeroCarousel = ({ slides }) => {
     currentIndexRef.current = 0;
     container.scrollLeft = 0;
 
-    const cardWidth = container.firstChild?.offsetWidth + 24;
+    const cardWidth = container.firstChild?.offsetWidth + 22;
 
     const start = () => {
       intervalRef.current = setInterval(() => {
