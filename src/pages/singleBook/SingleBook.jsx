@@ -71,7 +71,7 @@ const SingleBook = () => {
           </nav>
 
           {/* Main Book Container */}
-        <div className="bg-white shadow-lg rounded-2xl overflow-hidden border border-gray-200 flex flex-col md:flex-row transition-colors duration-300 dark:bg-gray-900 dark:text-gray-200 dark:hover:text-gray-50 relative">
+        <div className="bg-white shadow-lg rounded-2xl border border-gray-200 flex flex-col md:flex-row transition-colors duration-300 dark:bg-gray-900 dark:text-gray-200 dark:hover:text-gray-50 relative">
 
         {/* Dropdown at top-left corner */}
         <div className="absolute top-2 left-2 z-10">
