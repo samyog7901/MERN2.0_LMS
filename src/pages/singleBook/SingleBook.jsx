@@ -151,7 +151,7 @@ const SingleBook = () => {
           {authorBooks.length > 0 && (
             <section className="mt-12">
               <h2 className="text-2xl font-semibold mb-4">More by {book.authorName}</h2>
-              <div className="flex overflow-x-auto gap-10 pb-2 hide-scrollbar">
+              <div className="flex overflow-x-auto gap-16 pb-2 hide-scrollbar">
                 {authorBooks.map((b) => (
                   <div key={b._id} className="flex-none w-40 sm:w-48">
                     <Card book={b} />
@@ -165,7 +165,7 @@ const SingleBook = () => {
           {similarBooks.length > 0 && (
             <section className="mt-12">
               <h2 className="text-2xl font-semibold mb-4">Similar Books</h2>
-              <div className="flex overflow-x-auto gap-10 pb-2 hide-scrollbar">
+              <div className="flex overflow-x-auto gap-16 pb-2 hide-scrollbar">
                 {similarBooks.map((b) => (
                   <div key={b._id} className="flex-none w-40 sm:w-48">
                     <Card book={b} />
