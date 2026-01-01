@@ -21,16 +21,16 @@ export default function ModifyDropdown({ id }) {
       {/* Trigger */}
       <button
         onClick={() => setOpen(!open)}
-        className="flex items-center justify-between w-20 px-3 py-2
+        className="flex items-center justify-between w-24 px-3 py-2
                    rounded-md bg-gray-100 text-gray-800
                    border border-gray-300
-                   hover:bg-gray-200 transition
+                   hover:bg-gray-200 hover:transition-transform duration-200 hover:scale-105
                    dark:bg-gray-800 dark:text-gray-200
-                   dark:border-gray-700 dark:hover:bg-gray-700"
+                   dark:border-gray-700 dark:hover:bg-gray-700 "
       >
         <span className="text-sm font-medium whitespace-nowrap">Modify</span>
         <svg
-          className={`w-4 h-4 transition-transform duration-200 ${
+          className={`w-5 h-4 transition-transform duration-200 ${
             open ? "rotate-180" : ""
           }`}
           fill="none"
