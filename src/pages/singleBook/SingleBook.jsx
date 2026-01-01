@@ -5,6 +5,7 @@ import { FaStar, FaRegStar } from "react-icons/fa";
 import Navbar from "../components/Navbar";
 import Card from "../components/Card";
 import Footer from "../components/Footer";
+import ModifyDropdown from "../components/ModifyDropdown";
 
 const SingleBook = () => {
   const { id } = useParams();
@@ -75,26 +76,7 @@ const SingleBook = () => {
 
         {/* Dropdown at top-left corner */}
         <div className="absolute top-2 left-2 z-10">
-          <select
-            className="px-3 py-2 bg-gray-200 text-gray-700 rounded-md shadow focus:outline-none dark:bg-gray-800 dark:text-gray-200 appearance-none"
-          >
-            <option value="modify">Modify</option>
-          </select>
-          {/* Dropdown arrow */}
-          <div className="absolute inset-y-0 right-3 flex items-center pointer-events-none">
-            <svg
-              className="w-4 h-4 text-gray-500 dark:text-gray-300"
-              xmlns="http://www.w3.org/2000/svg"
-              viewBox="0 0 20 20"
-              fill="currentColor"
-            >
-              <path
-                fillRule="evenodd"
-                d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
-                clipRule="evenodd"
-              />
-            </svg>
-          </div>
+          <ModifyDropdown/>
         </div>
 
         {/* Image with hover overlay */}
