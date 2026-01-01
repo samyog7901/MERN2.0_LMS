@@ -1,7 +1,7 @@
 import { useState, useRef, useEffect } from "react";
 import { Link } from "react-router-dom";
 
-export default function ModifyDropdown() {
+export default function ModifyDropdown({id}) {
   const [open, setOpen] = useState(false);
   const dropdownRef = useRef(null);
 
