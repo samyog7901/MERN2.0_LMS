@@ -70,21 +70,21 @@ const SingleBook = () => {
           </nav>
 
           {/* Main Book Container */}
-          <div className="bg-white shadow-lg rounded-2xl overflow-hidden border border-gray-200 flex flex-col md:flex-row transition-colors duration-300 dark:bg-gray-900 dark:text-gray-200 dark:hover:text-gray-50">
-          <div className="absolute top-2 left-2">
-            <select
-              className="px-3 py-2 bg-gray-200 text-gray-700 rounded-md shadow focus:outline-none dark:bg-gray-800 dark:text-gray-200"
-            >
-              <option value="modify">
-                <Link to={`/editBook/${id}`}>Modify</Link>
-              </option>
-            </select>
-          </div>
+          <div className="bg-white shadow-lg rounded-2xl overflow-hidden border border-gray-200 flex flex-col md:flex-row transition-colors duration-300 dark:bg-gray-900 dark:text-gray-200 dark:hover:text-gray-50 relative">
+            {/* Dropdown at top-left corner */}
+            <div className="absolute top-2 left-2">
+              <select
+                className="px-3 py-2 bg-gray-200 text-gray-700 rounded-md shadow focus:outline-none dark:bg-gray-800 dark:text-gray-200"
+              >
+                <option value="modify">
+                  <Link to={`/editBook/${id}`}>Modify</Link>
+                </option>
+              </select>
+            </div>
 
             {/* Image with hover overlay */}
             <div
               className="md:w-1/3 relative bg-gray-100 flex items-center justify-center p-6 cursor-pointer group dark:bg-gray-900"
-            
             >
               <img
                 src={book.imageUrl || "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTktoNpsu4s9DMHTtXkuuItwSp2ArmLW4YjdA&s"}
