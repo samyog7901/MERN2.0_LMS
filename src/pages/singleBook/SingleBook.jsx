@@ -71,7 +71,15 @@ const SingleBook = () => {
 
           {/* Main Book Container */}
           <div className="bg-white shadow-lg rounded-2xl overflow-hidden border border-gray-200 flex flex-col md:flex-row transition-colors duration-300 dark:bg-gray-900 dark:text-gray-200 dark:hover:text-gray-50">
-            <button onClick="/editBook/:id" className="top-2 rounded-3xl bg-gray-300 hover:bg-amber-100 hover:transition-transform duration-200 hover:scale-110">Modify</button>
+          <div className="absolute top-2 left-2">
+            <select
+              className="px-3 py-2 bg-gray-200 text-gray-700 rounded-md shadow focus:outline-none dark:bg-gray-800 dark:text-gray-200"
+            >
+              <option value="modify">
+                <Link to={`/editBook/${id}`}>Modify</Link>
+              </option>
+            </select>
+          </div>
 
             {/* Image with hover overlay */}
             <div
