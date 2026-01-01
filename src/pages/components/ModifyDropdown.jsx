@@ -21,7 +21,7 @@ export default function ModifyDropdown({ id }) {
       {/* Trigger */}
       <button
         onClick={() => setOpen(!open)}
-        className="flex items-center justify-between w-24 px-3 py-2
+        className="flex items-center justify-between w-20 px-3 py-2
                    rounded-md bg-gray-100 text-gray-800
                    border border-gray-300
                    hover:bg-gray-200 transition
