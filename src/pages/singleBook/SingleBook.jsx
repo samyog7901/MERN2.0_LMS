@@ -70,92 +70,93 @@ const SingleBook = () => {
           </nav>
 
           {/* Main Book Container */}
-          <div className="bg-white shadow-lg rounded-2xl overflow-hidden border border-gray-200 flex flex-col md:flex-row transition-colors duration-300 dark:bg-gray-900 dark:text-gray-200 dark:hover:text-gray-50 relative">
+          {/* Main Book Container */}
+        <div className="bg-white shadow-lg rounded-2xl overflow-hidden border border-gray-200 flex flex-col md:flex-row transition-colors duration-300 dark:bg-gray-900 dark:text-gray-200 dark:hover:text-gray-50 relative">
 
-            {/* Dropdown at top-left corner */}
-            <div className="absolute top-2 left-2">
-              <select
-                className="px-3 py-2 bg-gray-200 text-gray-700 rounded-md shadow focus:outline-none dark:bg-gray-800 dark:text-gray-200 appearance-none"
-              >
-                <option value="modify">Modify</option>
-              </select>
-              {/* Dropdown arrow */}
-              <div className="absolute inset-y-0 right-3 flex items-center pointer-events-none">
-                <svg
-                  className="w-4 h-4 text-gray-500 dark:text-gray-300"
-                  xmlns="http://www.w3.org/2000/svg"
-                  viewBox="0 0 20 20"
-                  fill="currentColor"
-                >
-                  <path
-                    fillRule="evenodd"
-                    d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
-                    clipRule="evenodd"
-                  />
-                </svg>
-              </div>
-            </div>
-
-            {/* Image with hover overlay */}
-            <div
-              className="md:w-1/3 relative bg-gray-100 flex items-center justify-center p-6 cursor-pointer group dark:bg-gray-900"
+        {/* Dropdown at top-left corner */}
+        <div className="absolute top-2 left-2 z-10">
+          <select
+            className="px-3 py-2 bg-gray-200 text-gray-700 rounded-md shadow focus:outline-none dark:bg-gray-800 dark:text-gray-200 appearance-none"
+          >
+            <option value="modify">Modify</option>
+          </select>
+          {/* Dropdown arrow */}
+          <div className="absolute inset-y-0 right-3 flex items-center pointer-events-none">
+            <svg
+              className="w-4 h-4 text-gray-500 dark:text-gray-300"
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 20 20"
+              fill="currentColor"
             >
-              <img
-                src={book.imageUrl || "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTktoNpsu4s9DMHTtXkuuItwSp2ArmLW4YjdA&s"}
-                alt={book.bookName}
-                className="rounded-xl max-h-[400px] object-contain transition-transform duration-300 group-hover:scale-105"
+              <path
+                fillRule="evenodd"
+                d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
+                clipRule="evenodd"
               />
-              {hoverDescription && book.description && (
-                <div className="absolute inset-0 bg-black bg-opacity-70 text-white p-4 rounded-xl flex items-center justify-center text-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                  <p className="text-sm leading-relaxed overflow-y-auto max-h-[380px]">{book.description}</p>
-                </div>
-              )}
+            </svg>
+          </div>
+        </div>
+
+        {/* Image with hover overlay */}
+        <div
+          className="md:w-1/3 relative bg-gray-100 flex items-center justify-center p-6 cursor-pointer group dark:bg-gray-900"
+        >
+          <img
+            src={book.imageUrl || "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTktoNpsu4s9DMHTtXkuuItwSp2ArmLW4YjdA&s"}
+            alt={book.bookName}
+            className="rounded-xl max-h-[400px] object-contain transition-transform duration-300 group-hover:scale-105"
+          />
+          {hoverDescription && book.description && (
+            <div className="absolute inset-0 bg-black bg-opacity-70 text-white p-4 rounded-xl flex items-center justify-center text-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+              <p className="text-sm leading-relaxed overflow-y-auto max-h-[380px]">{book.description}</p>
             </div>
+          )}
+        </div>
 
-            {/* Book Details */}
-            <div className="md:w-2/3 p-8 flex flex-col justify-between dark:text-gray-200">
-              <div>
-                <span className="inline-block mb-2 px-3 py-1 text-xs bg-amber-100 text-amber-800 rounded-full">
-                  {book.publication || "Category"}
-                </span>
+        {/* Book Details */}
+        <div className="md:w-2/3 p-8 flex flex-col justify-between dark:text-gray-200">
+          <div>
+            <span className="inline-block mb-2 px-3 py-1 text-xs bg-amber-100 text-amber-800 rounded-full">
+              {book.publication || "Category"}
+            </span>
 
-                <h1 className="text-3xl font-bold text-gray-900 dark:text-gray-200">{book.bookName}</h1>
-                <p className="mt-2 text-xl font-semibold text-green-600">
-                  Rs. {book.bookPrice}
-                </p>
+            <h1 className="text-3xl font-bold text-gray-900 dark:text-gray-200">{book.bookName}</h1>
+            <p className="mt-2 text-xl font-semibold text-green-600">
+              Rs. {book.bookPrice}
+            </p>
 
-                {/* Rating */}
-                <div className="mt-3 flex items-center">
-                  {[...Array(5)].map((_, i) =>
-                    i < rating ? (
-                      <FaStar key={i} className="text-yellow-400 mr-1" />
-                    ) : (
-                      <FaRegStar key={i} className="text-gray-300 mr-1" />
-                    )
-                  )}
-                  <span className="ml-2 text-gray-500 text-sm">({rating}.0)</span>
-                </div>
-              </div>
-
-              {/* Author & details */}
-              <div className="mt-6 text-gray-700 dark:text-gray-300 space-y-2 text-sm">
-                <p><span className="font-semibold">Author:</span> {book.authorName}</p>
-                <p><span className="font-semibold">ISBN:</span> {book.isbnNumber}</p>
-                <p><span className="font-semibold">Publication:</span> {book.publication}</p>
-                <p><span className="font-semibold">Published Date:</span> {book.publishedAt}</p>
-              </div>
-
-              {/* Action buttons */}
-              <div className="mt-8 flex flex-wrap gap-4">
-                <button className="flex-1 px-5 py-3 bg-blue-600 text-white rounded-xl shadow hover:bg-blue-700 transition dark:bg-gray-400 dark:hover:bg-gray-300 dark:text-blue-600">
-                  Buy Now
-                </button>
-                <button className="flex-1 px-5 py-3 bg-gray-200 text-gray-700 rounded-xl shadow hover:bg-gray-300 transition dark:text-white dark:bg-gray-800 dark:hover:bg-gray-600">
-                  Add to Wishlist
-                </button>
-              </div>
+            {/* Rating */}
+            <div className="mt-3 flex items-center">
+              {[...Array(5)].map((_, i) =>
+                i < rating ? (
+                  <FaStar key={i} className="text-yellow-400 mr-1" />
+                ) : (
+                  <FaRegStar key={i} className="text-gray-300 mr-1" />
+                )
+              )}
+              <span className="ml-2 text-gray-500 text-sm">({rating}.0)</span>
             </div>
           </div>
+
+          {/* Author & details */}
+          <div className="mt-6 text-gray-700 dark:text-gray-300 space-y-2 text-sm">
+            <p><span className="font-semibold">Author:</span> {book.authorName}</p>
+            <p><span className="font-semibold">ISBN:</span> {book.isbnNumber}</p>
+            <p><span className="font-semibold">Publication:</span> {book.publication}</p>
+            <p><span className="font-semibold">Published Date:</span> {book.publishedAt}</p>
+          </div>
+
+          {/* Action buttons */}
+          <div className="mt-8 flex flex-wrap gap-4">
+            <button className="flex-1 px-5 py-3 bg-blue-600 text-white rounded-xl shadow hover:bg-blue-700 transition dark:bg-gray-400 dark:hover:bg-gray-300 dark:text-blue-600">
+              Buy Now
+            </button>
+            <button className="flex-1 px-5 py-3 bg-gray-200 text-gray-700 rounded-xl shadow hover:bg-gray-300 transition dark:text-white dark:bg-gray-800 dark:hover:bg-gray-600">
+              Add to Wishlist
+            </button>
+          </div>
+        </div>
+        </div>
 
           {/* Full Description Section */}
           {book.description && (
