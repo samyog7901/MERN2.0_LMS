@@ -1,4 +1,4 @@
-import " useState, useRef, useEffect } from "react";
+import { useState, useRef, useEffect } from "react";
 import { Link } from "react-router-dom";
 
 export default function ModifyDropdown() {
@@ -42,7 +42,7 @@ export default function ModifyDropdown() {
           className="absolute right-0 mt-2 w-40 rounded-md shadow-lg bg-white
                      dark:bg-gray-900 border dark:border-gray-700 z-20"
         >
-          <Link to="/editBook/:id"><button className="block w-full px-4 py-2 text-left text-sm hover:bg-gray-100 dark:hover:bg-gray-800">
+          <Link to={"/editBook/:id"}><button className="block w-full px-4 py-2 text-left text-sm hover:bg-gray-100 dark:hover:bg-gray-800">
             Edit
           </button></Link>
           <button className="block w-full px-4 py-2 text-left text-sm hover:bg-gray-100 dark:hover:bg-gray-800">
