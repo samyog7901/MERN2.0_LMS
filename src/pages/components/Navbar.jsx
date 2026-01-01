@@ -15,6 +15,12 @@ const Navbar = () => {
     "Hinduism",
     "Philosophy",
   ];
+  const toSlug = (text) =>
+    text
+      .toLowerCase()
+      .replace(/&/g, "and")
+      .replace(/\s+/g, "-");
+  
 
   return (
     <>
@@ -120,8 +126,9 @@ const Navbar = () => {
           <div className="max-w-7xl mx-auto px-5">
             <div className="flex gap-6 overflow-x-auto whitespace-nowrap py-2 scrollbar-hide">
               {categories.map((cat, index) => (
-                <button
+                <Link
                   key={index}
+                  to="/"
                   className="text-gray-700 dark:text-gray-300 
                     hover:text-blue-600 dark:hover:text-blue-400 
                     text-sm font-medium pb-2 relative group 
@@ -133,7 +140,7 @@ const Navbar = () => {
                     h-0.5 bg-blue-600 dark:bg-blue-400 
                     bottom-0 group-hover:w-full 
                     transition-all duration-300"></span>
-                </button>
+                </Link>
               ))}
             </div>
           </div>
